@@ -1,5 +1,5 @@
 from rest_framework import generics
-from models import Paciente
+from .models import Paciente
 from .serializers import PacienteSerializer
 
 

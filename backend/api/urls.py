@@ -1,8 +1,9 @@
 from django.urls import path
-from django.views.generic import TemplateView
+from .views import PacienteList, PacienteDetail
 
 app_name = 'api'
 
 urlpatterns = [
-    
+    path('<int:pk>/', PacienteDetail.as_view(), name='detalhescriar'),
+    path('', PacienteList.as_view(), name='listarcriar'),
 ]
