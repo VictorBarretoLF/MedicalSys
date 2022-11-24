@@ -7,10 +7,12 @@ import PatientScheduling from "./pages/PatientScheduling";
 
 const PrivateLayout = () => {
   return (
-    <Fragment>
+    <div className="h-100 w-100 d-flex flex-column">
       <Navbar />
-      <Outlet />
-    </Fragment>
+      <section className="h-100">
+        <Outlet />
+      </section>
+    </div>
   );
 };
 
@@ -36,11 +38,7 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return (
-    <div className="h-100 w-100">
-      <RouterProvider router={router} />
-    </div>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
