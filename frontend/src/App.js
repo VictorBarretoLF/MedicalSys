@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Authentication from "./pages/Authentication";
