@@ -6,7 +6,7 @@ import Login from "../components/Login";
 import Register from "../components/Register";
 
 const Authentication = () => {
-  const [key, setKey] = useState("home");
+  const [key, setKey] = useState("entrar");
   return (
     <section className="d-flex flex-column justify-content-center align-items-center h-100 bg-primary">
       <Container className="d-flex flex-column justify-content-center align-items-center h-100 ">
@@ -23,10 +23,10 @@ const Authentication = () => {
             justify
             className="mb-4 w-100"
           >
-            <Tab eventKey="home" title="Entrar">
+            <Tab eventKey="entrar" title="Entrar">
               <Login />
             </Tab>
-            <Tab eventKey="profile" title="Cadastrar">
+            <Tab eventKey="cadastrar" title="Cadastrar">
               <Register />
             </Tab>
           </Tabs>
