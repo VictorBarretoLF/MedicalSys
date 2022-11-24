@@ -5,6 +5,8 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import { NavLink } from "react-router-dom";
 
 const NavigationBar = () => {
+  let activeClassName = "text-decoration-underline text-white";
+
   return (
     <Navbar bg="primary" expand="lg">
       <Container>
@@ -12,19 +14,32 @@ const NavigationBar = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">
           <Nav className="d-flex gap-3 mt-lg-0 mt-4">
-            <Nav.Item className="d-flex align-items-center text-white">
-              <NavLink className="text-white" to="/app" end>
+            <Nav.Item className="d-flex align-items-center">
+              <NavLink
+                to="/app"
+                className={({ isActive }) =>
+                  isActive ? activeClassName : "text-white"
+                }
+                end
+              >
                 Agendamento
               </NavLink>
             </Nav.Item>
-            <Nav.Item className="d-flex align-items-center text-white">
-              <NavLink className="text-white" to="management" end>
+            <Nav.Item className="d-flex align-items-center">
+              <NavLink
+                to="management"
+                className={({ isActive }) =>
+                  isActive ? activeClassName : "text-white"
+                }
+                end
+              >
                 Gerenciamento
               </NavLink>
             </Nav.Item>
-            <NavDropdown className="mr-4" title="Opções" id="basic-nav-dropdown">
-              <NavDropdown.ItemText>Logado como:</NavDropdown.ItemText>
-              <NavDropdown.Divider />
+            <NavDropdown
+              title="victorbarretolins@gmail.com"
+              id="basic-nav-dropdown"
+            >
               <NavDropdown.Item href="#action/3.4">Sair</NavDropdown.Item>
             </NavDropdown>
           </Nav>
