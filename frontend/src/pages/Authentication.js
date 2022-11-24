@@ -1,5 +1,9 @@
 import React, { useState } from "react";
-import { Container, Row, Tabs, Tab, InputGroup, Form, Button } from "react-bootstrap";
+import Container from "react-bootstrap/Container";
+import Tabs from "react-bootstrap/Tabs";
+import Tab from "react-bootstrap/Tab";
+import Login from "../components/Login";
+import Register from "../components/Register";
 
 const Authentication = () => {
   const [key, setKey] = useState("home");
@@ -20,25 +24,10 @@ const Authentication = () => {
             className="mb-4 w-100"
           >
             <Tab eventKey="home" title="Entrar">
-              <h1 className="text-center">Entrar</h1>
-              <form>
-                <InputGroup className="mb-4">
-                  <InputGroup.Text id="email">E-mail</InputGroup.Text>
-                  <Form.Control aria-label="Email" aria-describedby="email" />
-                </InputGroup>
-                <InputGroup className="mb-4">
-                  <InputGroup.Text id="email">Senha</InputGroup.Text>
-                  <Form.Control
-                    aria-label="Email"
-                    aria-describedby="email"
-                    type="password"
-                  />
-                </InputGroup>
-                <Button className="w-100" variant="primary">Entrar</Button>
-              </form>
+              <Login />
             </Tab>
             <Tab eventKey="profile" title="Cadastrar">
-              <h1>Registrar</h1>
+              <Register />
             </Tab>
           </Tabs>
         </main>
