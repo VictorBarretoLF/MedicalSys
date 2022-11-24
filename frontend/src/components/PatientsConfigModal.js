@@ -16,8 +16,6 @@ const DEFAULT_FORM = {
   cep: "",
 };
 
-// cep teste 65603-750
-
 const PatientsConfigModal = ({ show, onHide, propData = DEFAULT_FORM }) => {
   const [form, setForm] = useState(propData);
 
@@ -34,11 +32,36 @@ const PatientsConfigModal = ({ show, onHide, propData = DEFAULT_FORM }) => {
       newForm.city = localidade;
       newForm.state = uf;
       newForm.address = logradouro + ", " + bairro;
-      console.log(res.data);
       setForm({ ...form, ...newForm });
     } catch (err) {
       console.log("ERROR ACONTECEU", err);
     }
+  };
+
+  const closeModalHandler = () => {
+    onHide();
+    setForm(DEFAULT_FORM);
+  };
+
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post("http://localhost:8000/api/", form, {
+        headers: {
+          "Content-Type": "application/json",
+          accept: "application/json",
+        },
+      });
+      if (res.status === 201) {
+        // adicionar para poder mostrar os cards novos
+        setForm(DEFAULT_FORM);
+      }
+      // mostrar um aviso de erro!
+      console.log(res);
+    } catch (error) {
+      console.log("AN ERROR OCURRED!!!");
+    }
+    console.log(form);
   };
 
   return (
@@ -49,18 +72,14 @@ const PatientsConfigModal = ({ show, onHide, propData = DEFAULT_FORM }) => {
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-        }}
-      >
+      <form onSubmit={onSubmitHandler}>
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
             Adicionar Paciente
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <InputGroup size="sm" className="mb-3">
+          <InputGroup className="mb-3">
             <InputGroup.Text id="nome">Nome</InputGroup.Text>
             <Form.Control
               aria-label="nome"
@@ -68,6 +87,7 @@ const PatientsConfigModal = ({ show, onHide, propData = DEFAULT_FORM }) => {
               onChange={onChangeHandler}
               name="name"
               value={form.name}
+              required
             />
             <InputGroup.Text id="cep">CEP</InputGroup.Text>
             <Form.Control
@@ -77,9 +97,10 @@ const PatientsConfigModal = ({ show, onHide, propData = DEFAULT_FORM }) => {
               onChange={onChangeHandler}
               name="cep"
               value={form.cep}
+              required
             />
           </InputGroup>
-          <InputGroup size="sm" className="mb-3">
+          <InputGroup className="mb-3">
             <InputGroup.Text id="telefone">Telefone</InputGroup.Text>
             <Form.Control
               aria-label="telefone"
@@ -87,6 +108,7 @@ const PatientsConfigModal = ({ show, onHide, propData = DEFAULT_FORM }) => {
               onChange={onChangeHandler}
               name="telephone"
               value={form.telephone}
+              required
             />
             <InputGroup.Text id="cidade">Cidade</InputGroup.Text>
             <Form.Control
@@ -95,9 +117,10 @@ const PatientsConfigModal = ({ show, onHide, propData = DEFAULT_FORM }) => {
               onChange={onChangeHandler}
               name="city"
               value={form.city}
+              required
             />
           </InputGroup>
-          <InputGroup size="sm" className="mb-3">
+          <InputGroup className="mb-3">
             <InputGroup.Text id="endereco">Endereço</InputGroup.Text>
             <Form.Control
               aria-label="endereço"
@@ -105,6 +128,7 @@ const PatientsConfigModal = ({ show, onHide, propData = DEFAULT_FORM }) => {
               onChange={onChangeHandler}
               name="address"
               value={form.address}
+              required
             />
             <InputGroup.Text id="numero">N°</InputGroup.Text>
             <Form.Control
@@ -113,9 +137,10 @@ const PatientsConfigModal = ({ show, onHide, propData = DEFAULT_FORM }) => {
               onChange={onChangeHandler}
               name="number"
               value={form.number}
+              required
             />
           </InputGroup>
-          <InputGroup size="sm" className="mb-3">
+          <InputGroup className="mb-3">
             <InputGroup.Text id="estado">Estado</InputGroup.Text>
             <Form.Control
               aria-label="estado"
@@ -123,6 +148,7 @@ const PatientsConfigModal = ({ show, onHide, propData = DEFAULT_FORM }) => {
               onChange={onChangeHandler}
               name="state"
               value={form.state}
+              required
             />
             <InputGroup.Text id="pais">País</InputGroup.Text>
             <Form.Control
@@ -131,11 +157,12 @@ const PatientsConfigModal = ({ show, onHide, propData = DEFAULT_FORM }) => {
               onChange={onChangeHandler}
               name="country"
               value={form.country}
+              required
             />
           </InputGroup>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={onHide}>Fechar</Button>
+          <Button onClick={closeModalHandler}>Fechar</Button>
           <Button variant="success" type="submit">
             Salvar
           </Button>
