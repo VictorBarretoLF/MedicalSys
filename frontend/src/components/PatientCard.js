@@ -10,13 +10,16 @@ const PatientCard = ({ data }) => {
     <Card className="mb-4" style={{ width: "16.3rem" }}>
       <Card.Header className="d-flex justify-content-between align-items-center">
         {data.name.length > 20 ? data.name.slice(0, 20) + "..." : data.name}
-        <Button variant="success" onClick={() => setModalShow(true)}>
+        <Button variant="info" onClick={() => setModalShow(true)}>
           Info
         </Button>
 
         <PatientsConfigModal
           show={modalShow}
           onHide={() => setModalShow(false)}
+          propData={data}
+          edit={true}
+          patientId={data.id}
         />
       </Card.Header>
       <ListGroup variant="flush">
