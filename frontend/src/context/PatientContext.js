@@ -29,6 +29,23 @@ export const PatientProvider = ({ children }) => {
     }
   };
 
+  const deletePatient = async (patient, patientIndex) => {
+    try {
+      const res = await axios.delete(`http://localhost:8000/api/${patient.id}`);
+
+      if (res.status === 204) {
+        const nextState = produce(patients, (draft) => {
+          draft.splice(patientIndex, 1);
+        });
+        setPatients(nextState);
+        return alert("Paciente deletado com Sucesso!");
+      }
+      alert("Erro inesperado!");
+    } catch (error) {
+      alert("Erro ao Adicionar um novo Paciente");
+    }
+  };
+
   useEffect(() => {
     const getPatients = async () => {
       const res = await axios.get("http://localhost:8000/api/");
@@ -38,7 +55,7 @@ export const PatientProvider = ({ children }) => {
   }, []);
 
   return (
-    <PatientContext.Provider value={{ patients, addNewPatient }}>
+    <PatientContext.Provider value={{ patients, addNewPatient, deletePatient }}>
       {children}
     </PatientContext.Provider>
   );

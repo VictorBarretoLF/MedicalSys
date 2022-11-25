@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { createPatient, updatePatient } from "../services/patientServices";
+import { updatePatient } from "../services/patientServices";
 import InputMask from "react-input-mask";
 import usePatientContext from "../hooks/usePatientContext";
 
