@@ -27,7 +27,7 @@ const PatientCard = ({ data, patientIndex }) => {
             onHide={() => setInfoModal(false)}
             propData={data}
             edit={true}
-            patientId={data.id}
+            patientIndex={patientIndex}
           />
 
           <DeletePatientModal
