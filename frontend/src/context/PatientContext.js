@@ -31,7 +31,9 @@ export const PatientProvider = ({ children }) => {
 
   const deletePatient = async (patient, patientIndex) => {
     try {
-      const res = await axios.delete(`http://localhost:8000/api/${patient.id}`);
+      const res = await axios.delete(
+        `http://localhost:8000/api/${patient.id}/`
+      );
 
       if (res.status === 204) {
         const nextState = produce(patients, (draft) => {
@@ -39,6 +41,32 @@ export const PatientProvider = ({ children }) => {
         });
         setPatients(nextState);
         return alert("Paciente deletado com Sucesso!");
+      }
+      alert("Erro inesperado!");
+    } catch (error) {
+      alert("Erro ao Adicionar um novo Paciente");
+    }
+  };
+
+  const updatePatient = async (patient, patientIndex) => {
+    try {
+      const res = await axios.put(
+        `http://localhost:8000/api/${patient.id}/`,
+        patient,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            accept: "application/json",
+          },
+        }
+      );
+      
+      if (res.data) {
+        const nextState = produce(patients, (draft) => {
+          draft[patientIndex] = res.data;
+        });
+        setPatients(nextState);
+        return alert("Paciente atualizado com Sucesso!");
       }
       alert("Erro inesperado!");
     } catch (error) {
@@ -55,7 +83,9 @@ export const PatientProvider = ({ children }) => {
   }, []);
 
   return (
-    <PatientContext.Provider value={{ patients, addNewPatient, deletePatient }}>
+    <PatientContext.Provider
+      value={{ patients, addNewPatient, deletePatient, updatePatient }}
+    >
       {children}
     </PatientContext.Provider>
   );
