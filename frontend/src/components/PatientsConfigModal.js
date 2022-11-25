@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { updatePatient } from "../services/patientServices";
+
 import InputMask from "react-input-mask";
 import usePatientContext from "../hooks/usePatientContext";
 
@@ -24,10 +24,10 @@ const PatientsConfigModal = ({
   onHide,
   propData = DEFAULT_FORM,
   edit = false,
-  patientId = null,
+  patientIndex,
 }) => {
   const [form, setForm] = useState(propData);
-  const { addNewPatient } = usePatientContext();
+  const { addNewPatient, updatePatient } = usePatientContext();
 
   // prevent the data form desapearing after the user closes the info modal
   useEffect(() => {
@@ -58,7 +58,7 @@ const PatientsConfigModal = ({
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     if (edit) {
-      await updatePatient(form, patientId);
+      await updatePatient(form, patientIndex);
     } else {
       await addNewPatient(form);
       setForm(DEFAULT_FORM);
