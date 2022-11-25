@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import { PatientContext } from "../context/PatientContext";
 
-const useAuth = () => {
+const usePatientContext = () => {
   return useContext(PatientContext);
 };
 
-export default useAuth;
+export default usePatientContext;
