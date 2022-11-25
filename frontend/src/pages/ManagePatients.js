@@ -4,21 +4,13 @@ import Button from "react-bootstrap/Button";
 import PatientsConfigModal from "../components/PatientsConfigModal";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 
 import PatientCard from "../components/PatientCard";
+import usePatientContext from "../hooks/usePatientContext";
 
 const ManagePatients = () => {
   const [modalShow, setModalShow] = useState(false);
-  const [patients, setPatients] = useState([]);
-
-  useEffect(() => {
-    const getPatients = async () => {
-      const res = await axios.get("http://localhost:8000/api/");
-      setPatients(res.data);
-    };
-    getPatients();
-  }, []);
+  const { patients } = usePatientContext();
 
   return (
     <div className="h-100">
@@ -36,11 +28,7 @@ const ManagePatients = () => {
         <Container>
           <Row>
             {patients.map((patient) => {
-              return (
-                <Col key={patient.id}>
-                  <PatientCard data={patient} />
-                </Col>
-              );
+              return <PatientCard key={patient.id} data={patient} />;
             })}
           </Row>
         </Container>
