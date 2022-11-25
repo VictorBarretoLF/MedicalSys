@@ -15,7 +15,7 @@ export const updatePatient = async (data, patientId) => {
     }
 };
 
-const deletePatient = () => {};
+export const deletePatient = () => {};
 
 export const createPatient = async (data) => {
   try {
