@@ -1,5 +1,5 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+// import axios from "axios";
+import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import PatientsConfigModal from "../components/PatientsConfigModal";
 import Container from "react-bootstrap/Container";
@@ -7,6 +7,7 @@ import Row from "react-bootstrap/Row";
 
 import PatientCard from "../components/PatientCard";
 import usePatientContext from "../hooks/usePatientContext";
+
 
 const ManagePatients = () => {
   const [modalShow, setModalShow] = useState(false);
