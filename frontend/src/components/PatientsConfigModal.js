@@ -5,6 +5,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { createPatient, updatePatient } from "../services/patientServices";
+import InputMask from "react-input-mask";
 
 const DEFAULT_FORM = {
   name: "",
@@ -35,7 +36,7 @@ const PatientsConfigModal = ({
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
   };
-
+  console.log(form);
   const getCepData = async () => {
     try {
       const res = await axios.get(`https://viacep.com.br/ws/${form.cep}/json/`);
@@ -88,26 +89,43 @@ const PatientsConfigModal = ({
               required
             />
             <InputGroup.Text id="cep">CEP</InputGroup.Text>
-            <Form.Control
-              aria-label="cep"
-              aria-describedby="cep"
-              onBlur={getCepData}
-              onChange={onChangeHandler}
-              name="cep"
+            <InputMask
+              mask="99999-999"
               value={form.cep}
-              required
-            />
+              onChange={onChangeHandler}
+              onBlur={getCepData}
+            >
+              {() => (
+                <Form.Control
+                  aria-label="cep"
+                  aria-describedby="cep"
+                  onBlur={getCepData}
+                  onChange={onChangeHandler}
+                  name="cep"
+                  value={form.cep}
+                  required
+                />
+              )}
+            </InputMask>
           </InputGroup>
           <InputGroup className="mb-3">
             <InputGroup.Text id="telefone">Telefone</InputGroup.Text>
-            <Form.Control
-              aria-label="telefone"
-              aria-describedby="numero de telefone"
-              onChange={onChangeHandler}
-              name="telephone"
+            <InputMask
+              mask="(99)99999-9999"
               value={form.telephone}
-              required
-            />
+              onChange={onChangeHandler}
+            >
+              {() => (
+                <Form.Control
+                  aria-label="telefone"
+                  aria-describedby="numero de telefone"
+                  onChange={onChangeHandler}
+                  name="telephone"
+                  value={form.telephone}
+                  required
+                />
+              )}
+            </InputMask>
             <InputGroup.Text id="cidade">Cidade</InputGroup.Text>
             <Form.Control
               aria-label="cidade"
