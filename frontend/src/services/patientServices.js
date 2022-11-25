@@ -1,10 +1,23 @@
 import axios from "axios";
 
-const updatePatient = () => {};
+export const updatePatient = async (data, patientId) => {
+  console.log(data, patientId);
+    try {
+      const res = await axios.put(`http://localhost:8000/api/${patientId}/`, data, {
+        headers: {
+          "Content-Type": "application/json",
+          accept: "application/json",
+        },
+      });
+      return res;
+    } catch (error) {
+      console.log("AN ERROR OCURRED");
+    }
+};
 
 const deletePatient = () => {};
 
-const createPatient = async (data) => {
+export const createPatient = async (data) => {
   try {
     const res = await axios.post("http://localhost:8000/api/", data, {
       headers: {
@@ -12,9 +25,8 @@ const createPatient = async (data) => {
         accept: "application/json",
       },
     });
-    if (res.status === 201) {
-      // adicionar para poder mostrar os cards novos
-    }
+
+    return res;
   } catch (error) {
     console.log("AN ERROR OCURRED");
   }
