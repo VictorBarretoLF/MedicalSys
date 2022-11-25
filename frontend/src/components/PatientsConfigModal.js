@@ -36,7 +36,7 @@ const PatientsConfigModal = ({
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
   };
-  console.log(form);
+
   const getCepData = async () => {
     try {
       const res = await axios.get(`https://viacep.com.br/ws/${form.cep}/json/`);
@@ -47,7 +47,7 @@ const PatientsConfigModal = ({
       newForm.address = logradouro + ", " + bairro;
       setForm({ ...form, ...newForm });
     } catch (err) {
-      console.log("ERROR ACONTECEU", err);
+      alert("Não Foi Possível pegar os dados referente ao CEP");
     }
   };
 
