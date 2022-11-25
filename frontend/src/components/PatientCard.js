@@ -5,18 +5,18 @@ import Button from "react-bootstrap/Button";
 import PatientsConfigModal from "../components/PatientsConfigModal";
 
 const PatientCard = ({ data }) => {
-  const [modalShow, setModalShow] = useState(false);
+  const [infoModal, setInfoModal] = useState(false);
   return (
-    <Card className="mb-4" style={{ width: "16.3rem" }}>
+    <Card className="mb-4">
       <Card.Header className="d-flex justify-content-between align-items-center">
-        {data.name.length > 20 ? data.name.slice(0, 20) + "..." : data.name}
-        <Button variant="info" onClick={() => setModalShow(true)}>
+        {data.name.length > 40 ? data.name.slice(0, 40) + "..." : data.name}
+        <Button variant="info" onClick={() => setInfoModal(true)}>
           Info
         </Button>
 
         <PatientsConfigModal
-          show={modalShow}
-          onHide={() => setModalShow(false)}
+          show={infoModal}
+          onHide={() => setInfoModal(false)}
           propData={data}
           edit={true}
           patientId={data.id}
