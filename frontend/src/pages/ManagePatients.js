@@ -8,7 +8,6 @@ import Row from "react-bootstrap/Row";
 import PatientCard from "../components/PatientCard";
 import usePatientContext from "../hooks/usePatientContext";
 
-
 const ManagePatients = () => {
   const [modalShow, setModalShow] = useState(false);
   const { patients } = usePatientContext();
@@ -28,8 +27,14 @@ const ManagePatients = () => {
       <main className="px-4 mt-2">
         <Container>
           <Row>
-            {patients.map((patient) => {
-              return <PatientCard key={patient.id} data={patient} />;
+            {patients.map((patient, index) => {
+              return (
+                <PatientCard
+                  key={patient.id}
+                  data={patient}
+                  patientIndex={index}
+                />
+              );
             })}
           </Row>
         </Container>
