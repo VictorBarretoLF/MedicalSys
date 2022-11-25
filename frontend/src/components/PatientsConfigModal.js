@@ -50,10 +50,7 @@ const PatientsConfigModal = ({
     }
   };
 
-  const closeModalHandler = () => {
-    onHide();
-    setForm(DEFAULT_FORM);
-  };
+  const clearForm = () => setForm(DEFAULT_FORM);
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -163,7 +160,12 @@ const PatientsConfigModal = ({
           </InputGroup>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={closeModalHandler}>Fechar</Button>
+          {!edit && (
+            <Button variant="warning" onClick={clearForm}>
+              Limpar
+            </Button>
+          )}
+          <Button onClick={onHide}>Fechar</Button>
           <Button variant="success" type="submit">
             {edit ? "Atualizar" : "Salvar"}
           </Button>
