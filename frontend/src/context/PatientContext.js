@@ -7,7 +7,11 @@ export const PatientProvider = ({ children }) => {
   const [patients, setPatients] = useState([]);
 
   useEffect(() => {
-    console.log("context working");
+    const getPatients = async () => {
+      const res = await axios.get("http://localhost:8000/api/");
+      setPatients(res.data);
+    };
+    getPatients();
   }, []);
 
   return (
