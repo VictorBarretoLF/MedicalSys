@@ -2,8 +2,9 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import { createPatient, updatePatient } from "../services/patientServices";
 
 const DEFAULT_FORM = {
   name: "",
@@ -16,8 +17,19 @@ const DEFAULT_FORM = {
   cep: "",
 };
 
-const PatientsConfigModal = ({ show, onHide, propData = DEFAULT_FORM }) => {
+const PatientsConfigModal = ({
+  show,
+  onHide,
+  propData = DEFAULT_FORM,
+  edit = false,
+  patientId = null,
+}) => {
   const [form, setForm] = useState(propData);
+
+  // prevent the data form desapearing after the user closes the info modal
+  useEffect(() => {
+    if (edit) setForm(propData);
+  }, [show, propData, edit]);
 
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
@@ -45,23 +57,12 @@ const PatientsConfigModal = ({ show, onHide, propData = DEFAULT_FORM }) => {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    try {
-      const res = await axios.post("http://localhost:8000/api/", form, {
-        headers: {
-          "Content-Type": "application/json",
-          accept: "application/json",
-        },
-      });
-      if (res.status === 201) {
-        // adicionar para poder mostrar os cards novos
-        setForm(DEFAULT_FORM);
-      }
-      // mostrar um aviso de erro!
-      console.log(res);
-    } catch (error) {
-      console.log("AN ERROR OCURRED!!!");
+    if (edit) {
+      await updatePatient(form, patientId);
+    } else {
+      await createPatient(form);
+      setForm(DEFAULT_FORM);
     }
-    console.log(form);
   };
 
   return (
@@ -75,7 +76,7 @@ const PatientsConfigModal = ({ show, onHide, propData = DEFAULT_FORM }) => {
       <form onSubmit={onSubmitHandler}>
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Adicionar Paciente
+            {edit ? "Info/Atualizar" : "Adicionar Paciente"}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -164,7 +165,7 @@ const PatientsConfigModal = ({ show, onHide, propData = DEFAULT_FORM }) => {
         <Modal.Footer>
           <Button onClick={closeModalHandler}>Fechar</Button>
           <Button variant="success" type="submit">
-            Salvar
+            {edit ? "Atualizar" : "Salvar"}
           </Button>
         </Modal.Footer>
       </form>
