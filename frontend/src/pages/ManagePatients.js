@@ -11,7 +11,7 @@ import PatientCard from "../components/PatientCard";
 const ManagePatients = () => {
   const [modalShow, setModalShow] = useState(false);
   const [patients, setPatients] = useState([]);
-  console.log(patients);
+
   useEffect(() => {
     const getPatients = async () => {
       const res = await axios.get("http://localhost:8000/api/");
