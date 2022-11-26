@@ -2,10 +2,13 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import axiosInstance from "../utils/axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import CustomAlert from "./Alert";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -28,7 +31,12 @@ const Login = () => {
           accept: "application/json",
         },
       });
-      console.log(res);
+      localStorage.setItem("access_token", res.data.access);
+      localStorage.setItem("refresh_token", res.data.refresh);
+      axiosInstance.defaults.headers["Authorization"] =
+        "JWT " + localStorage.getItem("access_token");
+      navigate("/app");
+      // console.log(res)
     } catch (error) {
       return showAlert(true, "danger", "E-mail ou senha inválidos!");
     }
