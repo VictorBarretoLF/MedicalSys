@@ -16,8 +16,6 @@ const Register = () => {
   const [form, setForm] = useState(DEFAULT_FORM);
   const [alert, setAlert] = useState({ show: false, msg: "", type: "" });
 
-  useEffect(() => {}, []);
-
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value.trim() });
