@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosInstance from "../utils/axios";
 import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -39,12 +39,16 @@ const Register = () => {
     try {
       const newForm = { ...form };
       delete newForm.confirmPassword;
-      await axios.post("http://localhost:8000/api/user/create/", newForm, {
-        headers: {
-          "Content-Type": "application/json",
-          accept: "application/json",
-        },
-      });
+      await axiosInstance.post(
+        "user/create/",
+        newForm,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            accept: "application/json",
+          },
+        }
+      );
       setForm(DEFAULT_FORM);
       return showAlert(true, "success", "Sua conta foi criada com sucesso!");
     } catch (error) {
