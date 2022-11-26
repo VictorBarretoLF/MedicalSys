@@ -3,9 +3,22 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { NavLink } from "react-router-dom";
+import axiosInstance from "../utils/axios";
+import { useNavigate } from "react-router-dom";
 
 const NavigationBar = () => {
+  const navigate = useNavigate();
   let activeClassName = "text-decoration-underline text-white";
+
+  const logout = async () => {
+    await axiosInstance.post("user/logout/blacklist/", {
+      refresh_token: localStorage.getItem("refresh_token"),
+    });
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    axiosInstance.defaults.headers["Authorization"] = null;
+    navigate("/");
+  };
 
   return (
     <Navbar bg="primary" expand="lg">
@@ -40,7 +53,7 @@ const NavigationBar = () => {
               title="victorbarretolins@gmail.com"
               id="basic-nav-dropdown"
             >
-              <NavDropdown.Item href="#action/3.4">Sair</NavDropdown.Item>
+              <NavDropdown.Item onClick={logout}>Sair</NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
