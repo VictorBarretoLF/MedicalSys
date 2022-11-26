@@ -7,7 +7,7 @@ const CustomAlert = ({ type, msg, removeAlert }) => {
       removeAlert();
     }, 5000);
     return () => clearTimeout(timeout);
-  }, []);
+  }, [type, msg, removeAlert]);
   return <Alert variant={type}>{msg}</Alert>;
 };
 
