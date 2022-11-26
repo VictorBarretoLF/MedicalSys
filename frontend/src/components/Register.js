@@ -1,7 +1,9 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
+import CustomAlert from "./Alert";
 
 const DEFAULT_FORM = {
   email: "",
@@ -12,18 +14,48 @@ const DEFAULT_FORM = {
 
 const Register = () => {
   const [form, setForm] = useState(DEFAULT_FORM);
+  const [alert, setAlert] = useState({ show: false, msg: "", type: "" });
+
+  useEffect(() => {}, []);
 
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
   };
+
   const onSubmitHandler = async (e) => {
     e.preventDefault();
+
+    if (form.password.length < 6)
+      return showAlert(
+        true,
+        "danger",
+        "Senhas precisam ter pelo menos 6 caracteres!"
+      );
+
+    if (form.password !== form.confirmPassword)
+      return showAlert(true, "danger", "A senhas são diferentes!");
+
+    try {
+      // const res = await axios.post("http://localhost:8000/api/", data, {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     accept: "application/json",
+      //   },
+      // });
+
+    } catch (error) {}
+
     setForm(DEFAULT_FORM);
+  };
+
+  const showAlert = (show = false, type = "", msg = "") => {
+    setAlert({ show, type, msg });
   };
 
   return (
     <form onSubmit={onSubmitHandler}>
+      {alert.show && <CustomAlert {...alert} removeAlert={showAlert} />}
       <h1 className="text-center mb-3">Cadastrar</h1>
       <InputGroup className="mb-3">
         <InputGroup.Text id="nome">Nome</InputGroup.Text>
