@@ -20,7 +20,7 @@ const Register = () => {
 
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
+    setForm({ ...form, [name]: value.trim() });
   };
 
   const onSubmitHandler = async (e) => {
