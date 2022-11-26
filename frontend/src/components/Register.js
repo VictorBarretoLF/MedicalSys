@@ -37,16 +37,19 @@ const Register = () => {
       return showAlert(true, "danger", "A senhas são diferentes!");
 
     try {
-      // const res = await axios.post("http://localhost:8000/api/", data, {
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     accept: "application/json",
-      //   },
-      // });
-
-    } catch (error) {}
-
-    setForm(DEFAULT_FORM);
+      const newForm = { ...form };
+      delete newForm.confirmPassword;
+      await axios.post("http://localhost:8000/api/user/create/", newForm, {
+        headers: {
+          "Content-Type": "application/json",
+          accept: "application/json",
+        },
+      });
+      setForm(DEFAULT_FORM);
+      return showAlert(true, "success", "Sua conta foi criada com sucesso!");
+    } catch (error) {
+      return showAlert(true, "danger", "E-mail em uso!");
+    }
   };
 
   const showAlert = (show = false, type = "", msg = "") => {
