@@ -64,12 +64,8 @@ export const PatientProvider = ({ children }) => {
   };
 
   const getPatients = async () => {
-    try {
-      const res = await axiosInstance.get("http://localhost:8000/api/");
-      setPatients(res.data);
-    } catch (error) {
-      alert("Um inesperado ao carregar os pacientes aconteceu");
-    }
+    const res = await axiosInstance.get("/");
+    setPatients(res.data);
   };
 
   return (
