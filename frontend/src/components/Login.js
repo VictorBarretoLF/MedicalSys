@@ -5,8 +5,10 @@ import axiosInstance from "../utils/axios";
 import { useState } from "react";
 import CustomAlert from "./Alert";
 import { useNavigate } from "react-router-dom";
+import useAuthContext from "../hooks/useAuthContext";
 
 const Login = () => {
+  const { auth, setAuth } = useAuthContext();
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
@@ -25,18 +27,17 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const res = await axiosInstance.post("token/", form, {
-        headers: {
-          "Content-Type": "application/json",
-          accept: "application/json",
-        },
-      });
+      const res = await axiosInstance.post("token/", form);
       localStorage.setItem("access_token", res.data.access);
       localStorage.setItem("refresh_token", res.data.refresh);
       axiosInstance.defaults.headers["Authorization"] =
         "JWT " + localStorage.getItem("access_token");
+      setAuth({
+        access_token: localStorage.getItem("access_token"),
+        refresh_token: localStorage.getItem("refresh_token"),
+      });
+      console.log(res.data);
       navigate("/app");
-      // console.log(res)
     } catch (error) {
       return showAlert(true, "danger", "E-mail ou senha inválidos!");
     }
