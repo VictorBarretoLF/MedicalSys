@@ -6,4 +6,3 @@ class SchedulingSerializer(serializers.ModelSerializer):
     class Meta:
         fields = ('id', 'description', 'status', 'date', 'doctor', 'patient')
         model = Scheduling
-        # depth = 1
