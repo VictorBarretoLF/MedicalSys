@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import PatientsConfigModal from "../components/PatientsConfigModal";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 import PatientCard from "../components/PatientCard";
 import usePatientContext from "../hooks/usePatientContext";
@@ -33,11 +34,13 @@ const ManagePatients = () => {
           <Row>
             {patients.map((patient, index) => {
               return (
-                <PatientCard
-                  key={patient.id}
-                  data={patient}
-                  patientIndex={index}
-                />
+                <Col md={6}>
+                  <PatientCard
+                    key={patient.id}
+                    data={patient}
+                    patientIndex={index}
+                  />
+                </Col>
               );
             })}
           </Row>
