@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     "corsheaders",
     'users',
+    'scheduling',
     'rest_framework_simplejwt.token_blacklist',
 ]
 
