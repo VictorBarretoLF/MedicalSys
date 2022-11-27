@@ -1,6 +1,7 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 import produce from "immer";
+import axiosInstance from "../utils/axios";
 
 export const PatientContext = createContext({});
 
@@ -9,12 +10,7 @@ export const PatientProvider = ({ children }) => {
 
   const addNewPatient = async (data) => {
     try {
-      const res = await axios.post("http://localhost:8000/api/", data, {
-        headers: {
-          "Content-Type": "application/json",
-          accept: "application/json",
-        },
-      });
+      const res = await axiosInstance.post("http://localhost:8000/api/", data);
 
       if (res.data) {
         const nextState = produce(patients, (draft) => {
@@ -31,7 +27,7 @@ export const PatientProvider = ({ children }) => {
 
   const deletePatient = async (patient, patientIndex) => {
     try {
-      const res = await axios.delete(
+      const res = await axiosInstance.delete(
         `http://localhost:8000/api/${patient.id}/`
       );
 
@@ -50,17 +46,11 @@ export const PatientProvider = ({ children }) => {
 
   const updatePatient = async (patient, patientIndex) => {
     try {
-      const res = await axios.put(
+      const res = await axiosInstance.put(
         `http://localhost:8000/api/${patient.id}/`,
-        patient,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            accept: "application/json",
-          },
-        }
+        patient
       );
-      
+
       if (res.data) {
         const nextState = produce(patients, (draft) => {
           draft[patientIndex] = res.data;
@@ -76,7 +66,7 @@ export const PatientProvider = ({ children }) => {
 
   useEffect(() => {
     const getPatients = async () => {
-      const res = await axios.get("http://localhost:8000/api/");
+      const res = await axiosInstance.get("http://localhost:8000/api/");
       setPatients(res.data);
     };
     getPatients();
