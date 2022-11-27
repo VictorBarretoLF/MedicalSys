@@ -1,12 +1,10 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import produce from "immer";
 import axiosInstance from "../utils/axios";
-import useAuthContext from "../hooks/useAuthContext";
 
 export const PatientContext = createContext({});
 
 export const PatientProvider = ({ children }) => {
-  const { auth } = useAuthContext();
   const [patients, setPatients] = useState([]);
 
   const addNewPatient = async (data) => {
@@ -65,17 +63,24 @@ export const PatientProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    const getPatients = async () => {
+  const getPatients = async () => {
+    try {
       const res = await axiosInstance.get("http://localhost:8000/api/");
       setPatients(res.data);
-    };
-    if (auth?.access_token) getPatients();
-  }, [auth]);
+    } catch (error) {
+      alert("Um inesperado ao carregar os pacientes aconteceu");
+    }
+  };
 
   return (
     <PatientContext.Provider
-      value={{ patients, addNewPatient, deletePatient, updatePatient }}
+      value={{
+        patients,
+        addNewPatient,
+        deletePatient,
+        updatePatient,
+        getPatients,
+      }}
     >
       {children}
     </PatientContext.Provider>
