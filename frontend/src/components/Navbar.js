@@ -5,8 +5,10 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import { NavLink } from "react-router-dom";
 import axiosInstance from "../utils/axios";
 import { useNavigate } from "react-router-dom";
+import useAuthContext from "../hooks/useAuthContext";
 
 const NavigationBar = () => {
+  const { userData } = useAuthContext();
   const navigate = useNavigate();
   let activeClassName = "text-decoration-underline text-white";
 
@@ -23,7 +25,7 @@ const NavigationBar = () => {
   return (
     <Navbar bg="primary" expand="lg">
       <Container>
-        <Navbar.Brand className="text-white fs-3">React-Bootstrap</Navbar.Brand>
+        <Navbar.Brand className="text-white fs-3">MedicalSys v2.0</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">
           <Nav className="d-flex gap-3 mt-lg-0 mt-4">
@@ -49,10 +51,7 @@ const NavigationBar = () => {
                 Gerenciamento
               </NavLink>
             </Nav.Item>
-            <NavDropdown
-              title="victorbarretolins@gmail.com"
-              id="basic-nav-dropdown"
-            >
+            <NavDropdown title={userData.email} id="basic-nav-dropdown">
               <NavDropdown.Item onClick={logout}>Sair</NavDropdown.Item>
             </NavDropdown>
           </Nav>
