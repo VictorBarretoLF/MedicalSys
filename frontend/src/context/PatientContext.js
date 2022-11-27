@@ -1,11 +1,12 @@
-import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 import produce from "immer";
 import axiosInstance from "../utils/axios";
+import useAuthContext from "../hooks/useAuthContext";
 
 export const PatientContext = createContext({});
 
 export const PatientProvider = ({ children }) => {
+  const { auth } = useAuthContext();
   const [patients, setPatients] = useState([]);
 
   const addNewPatient = async (data) => {
@@ -69,8 +70,8 @@ export const PatientProvider = ({ children }) => {
       const res = await axiosInstance.get("http://localhost:8000/api/");
       setPatients(res.data);
     };
-    getPatients();
-  }, []);
+    if (auth?.access_token) getPatients();
+  }, [auth]);
 
   return (
     <PatientContext.Provider
