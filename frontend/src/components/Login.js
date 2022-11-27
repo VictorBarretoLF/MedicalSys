@@ -6,6 +6,7 @@ import { useState } from "react";
 import CustomAlert from "./Alert";
 import { useNavigate } from "react-router-dom";
 import useAuthContext from "../hooks/useAuthContext";
+import jwt_decode from "jwt-decode";
 
 const Login = () => {
   const { auth, setAuth } = useAuthContext();
