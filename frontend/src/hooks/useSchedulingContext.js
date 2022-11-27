@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import { SchedulingContext } from "../context/SchedulingContext";
+import { SchedulesContext } from "../context/SchedulingContext";
 
 const useSchedulingContext = () => {
-  return useContext(SchedulingContext);
+  return useContext(SchedulesContext);
 };
 
 export default useSchedulingContext;

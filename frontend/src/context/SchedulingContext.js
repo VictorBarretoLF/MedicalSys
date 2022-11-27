@@ -16,6 +16,7 @@ export const SchedulesProvider = ({ children }) => {
     <SchedulesContext.Provider
       value={{
         getSchedules,
+        schedules,
       }}
     >
       {children}
