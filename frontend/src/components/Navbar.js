@@ -3,14 +3,29 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { NavLink } from "react-router-dom";
+import axiosInstance from "../utils/axios";
+import { useNavigate } from "react-router-dom";
+import useAuthContext from "../hooks/useAuthContext";
 
 const NavigationBar = () => {
+  const { userData } = useAuthContext();
+  const navigate = useNavigate();
   let activeClassName = "text-decoration-underline text-white";
+
+  const logout = async () => {
+    await axiosInstance.post("user/logout/blacklist/", {
+      refresh_token: localStorage.getItem("refresh_token"),
+    });
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    axiosInstance.defaults.headers["Authorization"] = null;
+    navigate("/");
+  };
 
   return (
     <Navbar bg="primary" expand="lg">
       <Container>
-        <Navbar.Brand className="text-white fs-3">React-Bootstrap</Navbar.Brand>
+        <Navbar.Brand className="text-white fs-3">MedicalSys v2.0</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">
           <Nav className="d-flex gap-3 mt-lg-0 mt-4">
@@ -36,11 +51,8 @@ const NavigationBar = () => {
                 Gerenciamento
               </NavLink>
             </Nav.Item>
-            <NavDropdown
-              title="victorbarretolins@gmail.com"
-              id="basic-nav-dropdown"
-            >
-              <NavDropdown.Item href="#action/3.4">Sair</NavDropdown.Item>
+            <NavDropdown title={userData.email} id="basic-nav-dropdown">
+              <NavDropdown.Item onClick={logout}>Sair</NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
@@ -50,33 +62,3 @@ const NavigationBar = () => {
 };
 
 export default NavigationBar;
-
-// <Navbar bg="light" expand="lg">
-// <Container>
-//   <NavLink className="fs-2 text-decoration-none" to="/app">
-//     MedicalSys
-//   </NavLink>
-//   <Navbar.Toggle aria-controls="basic-navbar-nav" />
-//   <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">
-//     <Nav className="d-flex gap-3 mt-lg-0 mt-4">
-//       <span>Bem vindo, Fulano de Tal.</span>
-//       <NavLink
-//         className={({ isActive }) =>
-//           isActive ? "" : 'text-dark'
-//         }
-//         to="/app"
-//         end
-//       >
-//         Agendameto
-//       </NavLink>
-//       <NavLink
-//         className={(({ isActive }) => isActive ? "" : 'text-dark')}
-//         to="management"
-//         end
-//       >
-//         Gerenciamento
-//       </NavLink>
-//     </Nav>
-//   </Navbar.Collapse>
-// </Container>
-// </Navbar>

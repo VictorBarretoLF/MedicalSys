@@ -5,13 +5,16 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { PatientProvider } from "./context/PatientContext";
+import { AuthProvider } from "./context/AuthContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <PatientProvider>
-      <App />
-    </PatientProvider>
+    <AuthProvider>
+      <PatientProvider>
+        <App />
+      </PatientProvider>
+    </AuthProvider>
   </React.StrictMode>
 );
 
