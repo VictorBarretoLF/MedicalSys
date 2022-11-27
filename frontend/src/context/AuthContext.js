@@ -1,5 +1,4 @@
 import { createContext, useEffect, useState } from "react";
-import produce from "immer";
 import axiosInstance from "../utils/axios";
 import jwt_decode from "jwt-decode";
 
@@ -15,6 +14,7 @@ export const AuthProvider = ({ children }) => {
   const [userData, setUserData] = useState({});
 
   useEffect(() => {
+    // get current user date based on the decoded id of jwt
     const getCurrentUserData = async () => {
       const user_id = jwt_decode(auth).user_id;
 
