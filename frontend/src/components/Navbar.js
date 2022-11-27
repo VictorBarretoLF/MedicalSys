@@ -62,33 +62,3 @@ const NavigationBar = () => {
 };
 
 export default NavigationBar;
-
-// <Navbar bg="light" expand="lg">
-// <Container>
-//   <NavLink className="fs-2 text-decoration-none" to="/app">
-//     MedicalSys
-//   </NavLink>
-//   <Navbar.Toggle aria-controls="basic-navbar-nav" />
-//   <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">
-//     <Nav className="d-flex gap-3 mt-lg-0 mt-4">
-//       <span>Bem vindo, Fulano de Tal.</span>
-//       <NavLink
-//         className={({ isActive }) =>
-//           isActive ? "" : 'text-dark'
-//         }
-//         to="/app"
-//         end
-//       >
-//         Agendameto
-//       </NavLink>
-//       <NavLink
-//         className={(({ isActive }) => isActive ? "" : 'text-dark')}
-//         to="management"
-//         end
-//       >
-//         Gerenciamento
-//       </NavLink>
-//     </Nav>
-//   </Navbar.Collapse>
-// </Container>
-// </Navbar>
