@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Authentication from "./pages/Authentication";
 import ManagePatients from "./pages/ManagePatients";
-import PatientScheduling from "./pages/PatientScheduling";
+import Appointments from "./pages/Appointments";
 
 const PrivateLayout = () => {
   return (
@@ -26,7 +26,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <PatientScheduling />,
+        element: <Appointments />,
       },
       {
         path: "management",
