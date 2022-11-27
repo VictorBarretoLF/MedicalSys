@@ -6,10 +6,9 @@ import { useState } from "react";
 import CustomAlert from "./Alert";
 import { useNavigate } from "react-router-dom";
 import useAuthContext from "../hooks/useAuthContext";
-import jwt_decode from "jwt-decode";
 
 const Login = () => {
-  const { auth, setAuth } = useAuthContext();
+  const { setAuth } = useAuthContext();
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
@@ -33,11 +32,7 @@ const Login = () => {
       localStorage.setItem("refresh_token", res.data.refresh);
       axiosInstance.defaults.headers["Authorization"] =
         "JWT " + localStorage.getItem("access_token");
-      setAuth({
-        access_token: localStorage.getItem("access_token"),
-        refresh_token: localStorage.getItem("refresh_token"),
-      });
-      console.log(res.data);
+      setAuth(localStorage.getItem("access_token"));
       navigate("/app");
     } catch (error) {
       return showAlert(true, "danger", "E-mail ou senha inválidos!");
