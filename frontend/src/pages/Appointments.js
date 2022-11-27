@@ -1,16 +1,13 @@
-// import axios from "axios";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import useSchedulingContext from "../hooks/useSchedulingContext";
 import Button from "react-bootstrap/Button";
-import PatientsConfigModal from "../components/PatientsConfigModal";
+import AppointmentConfigModal from "../components/AppointmentConfigModal";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-
-import usePatientContext from "../hooks/usePatientContext";
 import AppointmentCard from "../components/AppointmentCard";
-import useSchedulingContext from "../hooks/useSchedulingContext";
 
-const ManagePatients = () => {
+const Appointments = () => {
   const [modalShow, setModalShow] = useState(false);
   const { schedules, getSchedules } = useSchedulingContext();
 
@@ -18,14 +15,16 @@ const ManagePatients = () => {
     getSchedules();
   }, []);
 
+  console.log(schedules);
+
   return (
     <div className="h-100">
       <header className="py-2 px-4 d-flex justify-content-sm-end">
         <Button variant="success" onClick={() => setModalShow(true)}>
-          Adicionar Paciente
+          Marcar Consulta
         </Button>
 
-        <PatientsConfigModal
+        <AppointmentConfigModal
           show={modalShow}
           onHide={() => setModalShow(false)}
         />
@@ -33,12 +32,12 @@ const ManagePatients = () => {
       <main className="px-4 mt-2">
         <Container>
           <Row>
-            {schedules.map((schedule, index) => {
+            {schedules.map((patient, index) => {
               return (
                 <AppointmentCard
-                  key={schedule.id}
-                  data={schedule}
-                  scheduleIndex={index}
+                  key={patient.id}
+                  data={patient}
+                  patientIndex={index}
                 />
               );
             })}
@@ -49,4 +48,4 @@ const ManagePatients = () => {
   );
 };
 
-export default ManagePatients;
+export default Appointments;
