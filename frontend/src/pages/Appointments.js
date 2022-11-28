@@ -9,8 +9,8 @@ import usePatientContext from "../hooks/usePatientContext";
 
 const Appointments = () => {
   const [modalShow, setModalShow] = useState(false);
-  const { schedules, getSchedules, getUsers, users } = useSchedulingContext();
-  const { patients, getPatients } = usePatientContext();
+  const { schedules, getSchedules, getUsers } = useSchedulingContext();
+  const { getPatients } = usePatientContext();
 
   useEffect(() => {
     const fetchPromisses = async () => {
@@ -41,8 +41,6 @@ const Appointments = () => {
                   key={schedule.id}
                   data={schedule}
                   appointmentIndex={index}
-                  doctors={users}
-                  patients={patients}
                 />
               );
             })}
