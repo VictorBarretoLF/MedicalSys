@@ -102,15 +102,15 @@ axiosInstance.interceptors.response.use(
   },
   function (error) {
     const originalRequest = error.config;
-    console.log("error 105", error);
+    // console.log("error 105", error);
     if (error.response.status === 401 && !originalRequest._retry) {
-      console.log("passsou pelo primeiro if");
+      // console.log("passsou pelo primeiro if");
       if (isRefreshing) {
         return new Promise(function (resolve, reject) {
           failedQueue.push({ resolve, reject });
         })
           .then((token) => {
-            console.log("line 112", token);
+            // console.log("line 112", token);
             originalRequest.headers["Authorization"] = "JWT " + token;
             return axiosInstance(originalRequest);
           })
@@ -121,23 +121,23 @@ axiosInstance.interceptors.response.use(
 
       originalRequest._retry = true;
       isRefreshing = true;
-      console.log(
-        "isRefresh e originalRequest",
-        isRefreshing,
-        originalRequest._retry
-      );
-      const refreshToken = window.localStorage.getItem("refresh_token");
+      // console.log(
+      //   "isRefresh e originalRequest",
+      //   isRefreshing,
+      //   originalRequest._retry
+      // );
+      const refreshToken = localStorage.getItem("refresh_token");
       return new Promise(function (resolve, reject) {
         axiosInstance
           .post("token/refresh/", { refresh : refreshToken })
           .then(({ data }) => {
-            console.log("line 129", data);
-            window.localStorage.setItem("access_token", data.access);
-            window.localStorage.setItem("refresh_token", data.refresh);
+            // console.log("line 129", data);
+            localStorage.setItem("access_token", data.access);
+            localStorage.setItem("refresh_token", data.refresh);
             axiosInstance.defaults.headers.common["Authorization"] =
               "JWT " + data.access;
             originalRequest.headers["Authorization"] = "JWT " + data.access;
-            console.log('check correct localStorage data', localStorage)
+            // console.log('check correct localStorage data', localStorage)
             processQueue(null, data.access);
             resolve(axiosInstance(originalRequest));
           })
