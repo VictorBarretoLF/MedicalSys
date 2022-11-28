@@ -5,9 +5,9 @@ import jwt_decode from "jwt-decode";
 export const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
-  const [auth, setAuth] = useState(
-    localStorage.getItem("access_token")
-      ? localStorage.getItem("access_token")
+  const [auth, setAuth] = useState(() =>
+    localStorage.getItem("refresh_token")
+      ? jwt_decode(localStorage.getItem("refresh_token"))
       : null
   );
 
@@ -16,16 +16,16 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     // get current user date based on the decoded id of jwt
     const getCurrentUserData = async () => {
-      const user_id = jwt_decode(auth).user_id;
+      const user_id = auth.user_id;
 
-      try {
-        const res = await axiosInstance.get(`user/${user_id}/`);
-        setUserData(res.data);
-      } catch (error) {
-        alert("Um erro aconteceu!");
-      }
+      const res = await axiosInstance.get(`user/${user_id}/`);
+      // console.log(res);
+      setUserData(res.data);
     };
-    if (auth) getCurrentUserData();
+    // console.log('aqui primeiro!!!', auth);
+    if (auth) {
+      getCurrentUserData();
+    }
   }, [auth]);
 
   return (

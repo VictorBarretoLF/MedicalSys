@@ -1,18 +1,19 @@
 from rest_framework import generics
-from .models import Patient
-from .serializers import PatientSerializer
+from .models import Scheduling
+from .serializers import SchedulingSerializer
 from rest_framework.permissions import IsAuthenticated
 
-class PatientList(generics.ListCreateAPIView):
+
+class SchedulingList(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
-    queryset = Patient.objects.all()
-    serializer_class = PatientSerializer
+    queryset = Scheduling.objects.all()
+    serializer_class = SchedulingSerializer
 
 
-class PatientDetail(generics.RetrieveUpdateDestroyAPIView):
+class SchedulingDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated]
-    queryset = Patient.objects.all()
-    serializer_class = PatientSerializer
+    queryset = Scheduling.objects.all()
+    serializer_class = SchedulingSerializer
 
 """ Concrete View Classes
 # CreateAPIView

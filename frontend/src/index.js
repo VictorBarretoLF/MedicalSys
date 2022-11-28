@@ -6,13 +6,16 @@ import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { PatientProvider } from "./context/PatientContext";
 import { AuthProvider } from "./context/AuthContext";
+import { SchedulesProvider } from "./context/SchedulingContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <AuthProvider>
       <PatientProvider>
-        <App />
+        <SchedulesProvider>
+          <App />
+        </SchedulesProvider>
       </PatientProvider>
     </AuthProvider>
   </React.StrictMode>
