@@ -10,6 +10,7 @@ import "moment/locale/pt-br";
 import useSchedulingContext from "../hooks/useSchedulingContext";
 import DeleteAppointmentModal from "./DeleteAppointmentModal";
 import usePatientContext from "../hooks/usePatientContext";
+import AppointmentConfigModal from "./AppointmentConfigModal";
 
 const AppointmentCard = ({ data, appointmentIndex }) => {
   const [infoModal, setInfoModal] = useState(false);
@@ -58,6 +59,15 @@ const AppointmentCard = ({ data, appointmentIndex }) => {
               <Button variant="danger" onClick={() => setDeleteModal(true)}>
                 Delete
               </Button>
+
+              {/* This modal is to updated the Appointment */}
+              <AppointmentConfigModal
+                show={infoModal}
+                onHide={() => setInfoModal(false)}
+                dataToUpdate={data}
+                appointmentIndex={appointmentIndex}
+                edit={true}
+              />
 
               <DeleteAppointmentModal
                 show={deleteModal}

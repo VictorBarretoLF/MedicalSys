@@ -6,13 +6,15 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import InputGroup from "react-bootstrap/InputGroup";
 import { useEffect, useState } from "react";
+import * as moment from "moment";
+import "moment/locale/pt-br";
 
 import usePatientContext from "../hooks/usePatientContext";
 import useSchedulingContext from "../hooks/useSchedulingContext";
 
 const DEFAULT_FORM = {
   description: "",
-  date: "",
+  date: moment().format("YYYY-MM-DDTkk:mm"),
   doctor: "",
   patient: "",
   status: "",
@@ -21,18 +23,18 @@ const DEFAULT_FORM = {
 const AppointmentConfigModal = ({
   show,
   onHide,
-  propData = DEFAULT_FORM,
+  dataToUpdate = DEFAULT_FORM,
   edit = false,
-  patientIndex,
+  appointmentIndex,
 }) => {
-  const [form, setForm] = useState(propData);
+  const [form, setForm] = useState(dataToUpdate);
   const { patients } = usePatientContext();
-  const { doctors, status, addNewAppointment } = useSchedulingContext();
+  const { doctors, status, addNewAppointment, updateAppointment } =
+    useSchedulingContext();
 
-  // prevent the data form desapearing after the user closes the info modal
   useEffect(() => {
-    if (edit) setForm(propData);
-  }, [show, propData, edit]);
+    if (edit) setForm(dataToUpdate);
+  }, [show, dataToUpdate, edit]);
 
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
@@ -44,9 +46,9 @@ const AppointmentConfigModal = ({
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     console.log(form);
+
     if (edit) {
-      // await updatePatient(form, patientIndex);
-      console.log("edit form");
+      await updateAppointment(form, appointmentIndex);
     } else {
       await addNewAppointment(form);
       setForm(DEFAULT_FORM);
@@ -64,7 +66,7 @@ const AppointmentConfigModal = ({
       <form onSubmit={onSubmitHandler}>
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            {edit ? "Info/Atualizar" : "Marcar Consulta"}
+            {edit ? "Info/Atualizar Consulta" : "Marcar Consulta"}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -75,7 +77,7 @@ const AppointmentConfigModal = ({
               aria-describedby="dia do agendamento"
               onChange={onChangeHandler}
               name="date"
-              value={form.date}
+              value={moment(form.date).format("YYYY-MM-DDTkk:mm")}
               type="datetime-local"
               required
             />
