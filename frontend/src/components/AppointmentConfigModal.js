@@ -15,6 +15,7 @@ const DEFAULT_FORM = {
   date: "",
   doctor: "",
   patient: "",
+  status: "",
 };
 
 const AppointmentConfigModal = ({
@@ -26,8 +27,8 @@ const AppointmentConfigModal = ({
 }) => {
   const [form, setForm] = useState(propData);
   const { patients } = usePatientContext();
-  const { doctors } = useSchedulingContext();
-  console.log(patients);
+  const { doctors, status } = useSchedulingContext();
+
   // prevent the data form desapearing after the user closes the info modal
   useEffect(() => {
     if (edit) setForm(propData);
@@ -126,6 +127,27 @@ const AppointmentConfigModal = ({
               </FloatingLabel>
             </Col>
           </Row>
+          <FloatingLabel
+            className="mb-3"
+            controlId="status"
+            label="Situação da Consulta"
+          >
+            <Form.Select
+              aria-label="Escolha a situação da consulta"
+              onChange={onChangeHandler}
+              value={form.status}
+              name="status"
+            >
+              <option></option>
+              {["AC", "FN", "CF"].map((stats) => {
+                return (
+                  <option key={stats.id} value={stats}>
+                    {status[stats]?.text}
+                  </option>
+                );
+              })}
+            </Form.Select>
+          </FloatingLabel>
           <FloatingLabel controlId="floatingTextarea2" label="Descrição">
             <Form.Control
               as="textarea"
