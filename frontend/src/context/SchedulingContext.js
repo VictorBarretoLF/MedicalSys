@@ -5,7 +5,7 @@ import axiosInstance from "../utils/axios";
 export const SchedulesContext = createContext({});
 
 export const SchedulesProvider = ({ children }) => {
-  const [schedules, setSchedules] = useState([]);
+  const [appointments, setAppointments] = useState([]);
   const [doctors, setDoctors] = useState([]);
   const [status] = useState({
     AC: {
@@ -27,10 +27,10 @@ export const SchedulesProvider = ({ children }) => {
       const res = await axiosInstance.post("scheduling/", data);
 
       if (res.data) {
-        const nextState = produce(schedules, (draft) => {
+        const nextState = produce(appointments, (draft) => {
           draft.push(res.data);
         });
-        setSchedules(nextState);
+        setAppointments(nextState);
         alert("Paciente Adicionado com Sucesso!");
       }
       return res;
@@ -44,10 +44,10 @@ export const SchedulesProvider = ({ children }) => {
       const res = await axiosInstance.delete(`scheduling/${appointment.id}/`);
 
       if (res.status === 204) {
-        const nextState = produce(schedules, (draft) => {
+        const nextState = produce(appointments, (draft) => {
           draft.splice(appointmentIndex, 1);
         });
-        setSchedules(nextState);
+        setAppointments(nextState);
         return alert("Paciente deletado com Sucesso!");
       }
       alert("Erro inesperado!");
@@ -58,7 +58,7 @@ export const SchedulesProvider = ({ children }) => {
 
   const getSchedules = async () => {
     const res = await axiosInstance.get("scheduling/");
-    setSchedules(res.data);
+    setAppointments(res.data);
   };
 
   const getUsers = async () => {
@@ -70,7 +70,7 @@ export const SchedulesProvider = ({ children }) => {
     <SchedulesContext.Provider
       value={{
         getSchedules,
-        schedules,
+        appointments,
         status,
         getUsers,
         doctors,

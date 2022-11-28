@@ -46,7 +46,7 @@ const AppointmentConfigModal = ({
     console.log(form);
     if (edit) {
       // await updatePatient(form, patientIndex);
-      console.log('edit form')
+      console.log("edit form");
     } else {
       await addNewAppointment(form);
       setForm(DEFAULT_FORM);
@@ -144,9 +144,9 @@ const AppointmentConfigModal = ({
               required
             >
               <option></option>
-              {["AC", "FN", "CF"].map((stats) => {
+              {["AC", "FN", "CF"].map((stats, index) => {
                 return (
-                  <option key={stats.id} value={stats}>
+                  <option key={index} value={stats}>
                     {status[stats]?.text}
                   </option>
                 );
