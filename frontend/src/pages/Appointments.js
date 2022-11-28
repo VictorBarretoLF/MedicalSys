@@ -9,7 +9,7 @@ import usePatientContext from "../hooks/usePatientContext";
 
 const Appointments = () => {
   const [modalShow, setModalShow] = useState(false);
-  const { schedules, getSchedules, getUsers } = useSchedulingContext();
+  const { appointments, getSchedules, getUsers } = useSchedulingContext();
   const { getPatients } = usePatientContext();
 
   useEffect(() => {
@@ -35,11 +35,11 @@ const Appointments = () => {
       <main className="px-4 mt-2">
         <Container>
           <Row>
-            {schedules.map((schedule, index) => {
+            {appointments.map((appointment, index) => {
               return (
-                <AppointmentCard
-                  key={schedule.id}
-                  data={schedule}
+                <AppointmentCard 
+                  key={appointment.id}
+                  data={appointment}
                   appointmentIndex={index}
                 />
               );
