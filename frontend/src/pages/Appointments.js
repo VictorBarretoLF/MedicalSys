@@ -17,6 +17,7 @@ const Appointments = () => {
       await Promise.all([getSchedules(), getUsers(), getPatients()]);
     };
     fetchPromisses();
+    // console.log("aqui segundo");
   }, []);
 
   return (
