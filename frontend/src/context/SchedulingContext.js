@@ -6,7 +6,7 @@ export const SchedulesContext = createContext({});
 
 export const SchedulesProvider = ({ children }) => {
   const [schedules, setSchedules] = useState([]);
-  const [users, setUsers] = useState([]);
+  const [doctors, setDoctors] = useState([]);
   const [status] = useState({
     AC: {
       text: "A Confirmar",
@@ -46,7 +46,7 @@ export const SchedulesProvider = ({ children }) => {
 
   const getUsers = async () => {
     const res = await axiosInstance.get("user/all/");
-    setUsers(res.data);
+    setDoctors(res.data);
   };
 
   return (
@@ -56,7 +56,7 @@ export const SchedulesProvider = ({ children }) => {
         schedules,
         status,
         getUsers,
-        users,
+        doctors,
         deleteAppointment,
       }}
     >
