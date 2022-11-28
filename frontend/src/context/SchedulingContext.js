@@ -22,6 +22,23 @@ export const SchedulesProvider = ({ children }) => {
     },
   });
 
+  const deleteAppointment = async (appointment, appointmentIndex) => {
+    try {
+      const res = await axiosInstance.delete(`scheduling/${appointment.id}/`);
+
+      if (res.status === 204) {
+        const nextState = produce(schedules, (draft) => {
+          draft.splice(appointmentIndex, 1);
+        });
+        setSchedules(nextState);
+        return alert("Paciente deletado com Sucesso!");
+      }
+      alert("Erro inesperado!");
+    } catch (error) {
+      alert("Erro ao Adicionar um novo Paciente");
+    }
+  };
+
   const getSchedules = async () => {
     const res = await axiosInstance.get("scheduling/");
     setSchedules(res.data);
@@ -40,6 +57,7 @@ export const SchedulesProvider = ({ children }) => {
         status,
         getUsers,
         users,
+        deleteAppointment,
       }}
     >
       {children}

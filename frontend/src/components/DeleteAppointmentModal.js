@@ -1,6 +1,7 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import React from "react";
+import useSchedulingContext from "../hooks/useSchedulingContext";
 
 const DeleteAppointmentModal = ({
   show,
@@ -10,6 +11,8 @@ const DeleteAppointmentModal = ({
   currentDoctor,
   currentPatient,
 }) => {
+  const { deleteAppointment } = useSchedulingContext();
+
   return (
     <Modal
       show={show}
@@ -21,7 +24,7 @@ const DeleteAppointmentModal = ({
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          //   deletePatient(appointmentData, appointmentIndex);
+          deleteAppointment(appointmentData, appointmentIndex);
         }}
       >
         <Modal.Header closeButton>
