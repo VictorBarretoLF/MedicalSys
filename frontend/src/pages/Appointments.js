@@ -4,18 +4,19 @@ import Button from "react-bootstrap/Button";
 import AppointmentConfigModal from "../components/AppointmentConfigModal";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import AppointmentCard from "../components/AppointmentCard";
+import usePatientContext from "../hooks/usePatientContext";
 
 const Appointments = () => {
   const [modalShow, setModalShow] = useState(false);
-  const { schedules, getSchedules } = useSchedulingContext();
+  const { schedules, getSchedules, getUsers, users } = useSchedulingContext();
+  const { patients, getPatients } = usePatientContext();
 
   useEffect(() => {
     getSchedules();
+    getUsers();
+    getPatients();
   }, []);
-
-  console.log(schedules);
 
   return (
     <div className="h-100">
@@ -38,6 +39,8 @@ const Appointments = () => {
                   key={schedule.id}
                   data={schedule}
                   scheduleIndex={index}
+                  doctors={users}
+                  patients={patients}
                 />
               );
             })}
