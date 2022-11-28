@@ -9,7 +9,7 @@ import * as moment from "moment";
 import "moment/locale/pt-br";
 import useSchedulingContext from "../hooks/useSchedulingContext";
 
-const AppointmentCard = ({ data, scheduleIndex }) => {
+const AppointmentCard = ({ data, scheduleIndex, doctors }) => {
   const [infoModal, setInfoModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const { status } = useSchedulingContext();
@@ -23,7 +23,10 @@ const AppointmentCard = ({ data, scheduleIndex }) => {
         <Container>
           <Row>
             <Col md={6}>
-              <ListGroup.Item>Medico : {data.doctor}</ListGroup.Item>
+              <ListGroup.Item>
+                Medico :{" "}
+                {doctors.find((doctor) => doctor.id === data.doctor).name}
+              </ListGroup.Item>
             </Col>
             <Col>
               <ListGroup.Item>Paciente : {data.patient}</ListGroup.Item>
