@@ -76,6 +76,7 @@ const AppointmentConfigModal = ({
               name="date"
               value={form.date}
               type="datetime-local"
+              required
             />
           </InputGroup>
 
@@ -91,6 +92,7 @@ const AppointmentConfigModal = ({
                   onChange={onChangeHandler}
                   value={form.doctor}
                   name="doctor"
+                  required
                 >
                   <option></option>
                   {doctors.map((doctor) => {
@@ -114,6 +116,7 @@ const AppointmentConfigModal = ({
                   onChange={onChangeHandler}
                   value={form.patient}
                   name="patient"
+                  required
                 >
                   <option></option>
                   {patients.map((patient) => {
@@ -137,6 +140,7 @@ const AppointmentConfigModal = ({
               onChange={onChangeHandler}
               value={form.status}
               name="status"
+              required
             >
               <option></option>
               {["AC", "FN", "CF"].map((stats) => {
@@ -156,6 +160,7 @@ const AppointmentConfigModal = ({
               onChange={onChangeHandler}
               name="description"
               value={form.description}
+              required
             />
           </FloatingLabel>
         </Modal.Body>
