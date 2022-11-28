@@ -9,13 +9,15 @@ import * as moment from "moment";
 import "moment/locale/pt-br";
 import useSchedulingContext from "../hooks/useSchedulingContext";
 import DeleteAppointmentModal from "./DeleteAppointmentModal";
+import usePatientContext from "../hooks/usePatientContext";
 
-const AppointmentCard = ({ data, appointmentIndex, doctors, patients }) => {
+const AppointmentCard = ({ data, appointmentIndex }) => {
   const [infoModal, setInfoModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const [currentDoctor, setCurrentDoctor] = useState({});
   const [currentPatient, setCurrentPatient] = useState({});
-  const { status } = useSchedulingContext();
+  const { status, doctors } = useSchedulingContext();
+  const { patients } = usePatientContext();
 
   useEffect(() => {
     setCurrentDoctor(doctors?.find((doctor) => doctor.id === data.doctor));
