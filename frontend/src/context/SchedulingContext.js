@@ -22,6 +22,23 @@ export const SchedulesProvider = ({ children }) => {
     },
   });
 
+  const addNewAppointment = async (data) => {
+    try {
+      const res = await axiosInstance.post("scheduling/", data);
+
+      if (res.data) {
+        const nextState = produce(schedules, (draft) => {
+          draft.push(res.data);
+        });
+        setSchedules(nextState);
+        alert("Paciente Adicionado com Sucesso!");
+      }
+      return res;
+    } catch (error) {
+      alert("Erro ao Adicionar um novo Paciente");
+    }
+  };
+
   const deleteAppointment = async (appointment, appointmentIndex) => {
     try {
       const res = await axiosInstance.delete(`scheduling/${appointment.id}/`);
@@ -58,6 +75,7 @@ export const SchedulesProvider = ({ children }) => {
         getUsers,
         doctors,
         deleteAppointment,
+        addNewAppointment,
       }}
     >
       {children}

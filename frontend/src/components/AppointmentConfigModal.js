@@ -27,7 +27,7 @@ const AppointmentConfigModal = ({
 }) => {
   const [form, setForm] = useState(propData);
   const { patients } = usePatientContext();
-  const { doctors, status } = useSchedulingContext();
+  const { doctors, status, addNewAppointment } = useSchedulingContext();
 
   // prevent the data form desapearing after the user closes the info modal
   useEffect(() => {
@@ -44,12 +44,13 @@ const AppointmentConfigModal = ({
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     console.log(form);
-    // if (edit) {
-    //   await updatePatient(form, patientIndex);
-    // } else {
-    //   await addNewPatient(form);
-    //   setForm(DEFAULT_FORM);
-    // }
+    if (edit) {
+      // await updatePatient(form, patientIndex);
+      console.log('edit form')
+    } else {
+      await addNewAppointment(form);
+      setForm(DEFAULT_FORM);
+    }
   };
 
   return (
