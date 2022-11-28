@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import Button from "react-bootstrap/Button";
@@ -8,11 +8,19 @@ import Col from "react-bootstrap/esm/Col";
 import * as moment from "moment";
 import "moment/locale/pt-br";
 import useSchedulingContext from "../hooks/useSchedulingContext";
+import DeleteAppointmentModal from "./DeleteAppointmentModal";
 
-const AppointmentCard = ({ data, scheduleIndex, doctors, patients }) => {
+const AppointmentCard = ({ data, appointmentIndex, doctors, patients }) => {
   const [infoModal, setInfoModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
+  const [currentDoctor, setCurrentDoctor] = useState({});
+  const [currentPatient, setCurrentPatient] = useState({});
   const { status } = useSchedulingContext();
+
+  useEffect(() => {
+    setCurrentDoctor(doctors?.find((doctor) => doctor.id === data.doctor));
+    setCurrentPatient(patients?.find((patient) => patient.id === data.patient));
+  }, [data, doctors, patients]);
 
   return (
     <Card className="mb-4">
@@ -23,16 +31,10 @@ const AppointmentCard = ({ data, scheduleIndex, doctors, patients }) => {
         <Container>
           <Row>
             <Col md={6}>
-              <ListGroup.Item>
-                Medico :{" "}
-                {doctors?.find((doctor) => doctor.id === data.doctor)?.name}
-              </ListGroup.Item>
+              <ListGroup.Item>Medico : {currentDoctor?.name}</ListGroup.Item>
             </Col>
             <Col>
-              <ListGroup.Item>
-                Paciente :{" "}
-                {patients?.find((patient) => patient.id === data.patient)?.name}
-              </ListGroup.Item>
+              <ListGroup.Item>Paciente : {currentPatient?.name}</ListGroup.Item>
             </Col>
           </Row>
         </Container>
@@ -54,6 +56,15 @@ const AppointmentCard = ({ data, scheduleIndex, doctors, patients }) => {
               <Button variant="danger" onClick={() => setDeleteModal(true)}>
                 Delete
               </Button>
+
+              <DeleteAppointmentModal
+                show={deleteModal}
+                onHide={() => setDeleteModal(false)}
+                appointmentData={data}
+                appointmentIndex={appointmentIndex}
+                currentDoctor={currentDoctor}
+                currentPatient={currentPatient}
+              />
             </Col>
           </Row>
         </Container>
