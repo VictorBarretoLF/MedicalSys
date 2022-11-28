@@ -1,6 +1,9 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import Col from "react-bootstrap/Col";
+import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
 import InputGroup from "react-bootstrap/InputGroup";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -9,14 +12,10 @@ import InputMask from "react-input-mask";
 import usePatientContext from "../hooks/usePatientContext";
 
 const DEFAULT_FORM = {
-  name: "",
-  telephone: "",
-  address: "",
-  number: "",
-  city: "",
-  state: "",
-  country: "",
-  cep: "",
+  description: "",
+  date: "",
+  doctor: "",
+  patient: "",
 };
 
 const AppointmentConfigModal = ({
@@ -27,7 +26,6 @@ const AppointmentConfigModal = ({
   patientIndex,
 }) => {
   const [form, setForm] = useState(propData);
-  const { addNewPatient, updatePatient } = usePatientContext();
 
   // prevent the data form desapearing after the user closes the info modal
   useEffect(() => {
@@ -43,6 +41,7 @@ const AppointmentConfigModal = ({
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
+    console.log(form);
     // if (edit) {
     //   await updatePatient(form, patientIndex);
     // } else {
@@ -62,78 +61,72 @@ const AppointmentConfigModal = ({
       <form onSubmit={onSubmitHandler}>
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            {edit ? "Info/Atualizar" : "Adicionar Paciente"}
+            {edit ? "Info/Atualizar" : "Marcar Consulta"}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <InputGroup className="mb-3">
-            <InputGroup.Text id="telefone">Telefone</InputGroup.Text>
-            <InputMask
-              mask="(99)99999-9999"
-              value={form.telephone}
+            <InputGroup.Text id="date">Data consulta</InputGroup.Text>
+            <Form.Control
+              aria-label="data"
+              aria-describedby="dia do agendamento"
               onChange={onChangeHandler}
-            >
-              {() => (
-                <Form.Control
-                  aria-label="telefone"
-                  aria-describedby="numero de telefone"
+              name="date"
+              value={form.date}
+              type="datetime-local"
+            />
+          </InputGroup>
+
+          <Row className="g-2">
+            <Col md>
+              <FloatingLabel
+                className="mb-3"
+                controlId="selectDoctor"
+                label="Escolha um médico"
+              >
+                <Form.Select
+                  aria-label="Select para escolher médico"
                   onChange={onChangeHandler}
-                  name="telephone"
-                  value={form.telephone}
-                  required
-                />
-              )}
-            </InputMask>
-            <InputGroup.Text id="cidade">Cidade</InputGroup.Text>
+                  value={form.doctor}
+                  name="doctor"
+                >
+                  <option></option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </Form.Select>
+              </FloatingLabel>
+            </Col>
+            <Col md>
+              <FloatingLabel
+                className="mb-3"
+                controlId="selectPatient"
+                label="Escolha um paciente"
+              >
+                <Form.Select
+                  aria-label="Select para escolher paciente"
+                  onChange={onChangeHandler}
+                  value={form.patient}
+                  name="patient"
+                >
+                  <option></option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </Form.Select>
+              </FloatingLabel>
+            </Col>
+          </Row>
+          <FloatingLabel controlId="floatingTextarea2" label="Descrição">
             <Form.Control
-              aria-label="cidade"
-              aria-describedby="cidade atual"
+              as="textarea"
+              placeholder="Leave a comment here"
+              style={{ height: "100px" }}
               onChange={onChangeHandler}
-              name="city"
-              value={form.city}
-              required
+              name="description"
+              value={form.description}
             />
-          </InputGroup>
-          <InputGroup className="mb-3">
-            <InputGroup.Text id="endereco">Endereço</InputGroup.Text>
-            <Form.Control
-              aria-label="endereço"
-              aria-describedby="endereço da moradia, rua"
-              onChange={onChangeHandler}
-              name="address"
-              value={form.address}
-              required
-            />
-            <InputGroup.Text id="numero">N°</InputGroup.Text>
-            <Form.Control
-              aria-label="numero"
-              aria-describedby="numero da casa"
-              onChange={onChangeHandler}
-              name="number"
-              value={form.number}
-              required
-            />
-          </InputGroup>
-          <InputGroup className="mb-3">
-            <InputGroup.Text id="estado">Estado</InputGroup.Text>
-            <Form.Control
-              aria-label="estado"
-              aria-describedby="endereço da moradia, rua"
-              onChange={onChangeHandler}
-              name="state"
-              value={form.state}
-              required
-            />
-            <InputGroup.Text id="pais">País</InputGroup.Text>
-            <Form.Control
-              aria-label="país"
-              aria-describedby="país com moradia atual"
-              onChange={onChangeHandler}
-              name="country"
-              value={form.country}
-              required
-            />
-          </InputGroup>
+          </FloatingLabel>
         </Modal.Body>
         <Modal.Footer>
           {!edit && (
