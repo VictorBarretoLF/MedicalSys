@@ -13,9 +13,10 @@ const Appointments = () => {
   const { patients, getPatients } = usePatientContext();
 
   useEffect(() => {
-    getSchedules();
-    getUsers();
-    getPatients();
+    const fetchPromisses = async () => {
+      await Promise.all([getSchedules(), getUsers(), getPatients()]);
+    };
+    fetchPromisses();
   }, []);
 
   return (
@@ -38,7 +39,7 @@ const Appointments = () => {
                 <AppointmentCard
                   key={schedule.id}
                   data={schedule}
-                  scheduleIndex={index}
+                  appointmentIndex={index}
                   doctors={users}
                   patients={patients}
                 />
