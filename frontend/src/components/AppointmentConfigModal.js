@@ -6,10 +6,9 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import InputGroup from "react-bootstrap/InputGroup";
 import { useEffect, useState } from "react";
-import axios from "axios";
 
-import InputMask from "react-input-mask";
 import usePatientContext from "../hooks/usePatientContext";
+import useSchedulingContext from "../hooks/useSchedulingContext";
 
 const DEFAULT_FORM = {
   description: "",
@@ -26,7 +25,9 @@ const AppointmentConfigModal = ({
   patientIndex,
 }) => {
   const [form, setForm] = useState(propData);
-
+  const { patients } = usePatientContext();
+  const { doctors } = useSchedulingContext();
+  console.log(patients);
   // prevent the data form desapearing after the user closes the info modal
   useEffect(() => {
     if (edit) setForm(propData);
@@ -91,9 +92,13 @@ const AppointmentConfigModal = ({
                   name="doctor"
                 >
                   <option></option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
+                  {doctors.map((doctor) => {
+                    return (
+                      <option key={doctor.id} value={doctor.id}>
+                        {doctor.name}
+                      </option>
+                    );
+                  })}
                 </Form.Select>
               </FloatingLabel>
             </Col>
@@ -110,9 +115,13 @@ const AppointmentConfigModal = ({
                   name="patient"
                 >
                   <option></option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
+                  {patients.map((patient) => {
+                    return (
+                      <option key={patient.id} value={patient.id}>
+                        {patient.name}
+                      </option>
+                    );
+                  })}
                 </Form.Select>
               </FloatingLabel>
             </Col>
