@@ -54,6 +54,7 @@ export const PatientProvider = ({ children }) => {
         const nextState = produce(patients, (draft) => {
           draft[patientIndex] = res.data;
         });
+       
         setPatients(nextState);
         return alert("Paciente atualizado com Sucesso!");
       }

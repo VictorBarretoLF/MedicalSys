@@ -39,6 +39,26 @@ export const SchedulesProvider = ({ children }) => {
     }
   };
 
+  const updateAppointment = async (appointment, appointmentIndex) => {
+    try {
+      const res = await axiosInstance.put(
+        `scheduling/${appointment.id}/`,
+        appointment
+      );
+      console.log(res, appointmentIndex);
+      if (res.data) {
+        const nextState = produce(appointments, (draft) => {
+          draft[appointmentIndex] = res.data;
+        });
+        setAppointments(nextState);
+        return alert("Consulta atualizado com Sucesso!");
+      }
+      // alert("Erro inesperado!");
+    } catch (error) {
+      alert("Erro ao ATUALIZAR consulta");
+    }
+  };
+
   const deleteAppointment = async (appointment, appointmentIndex) => {
     try {
       const res = await axiosInstance.delete(`scheduling/${appointment.id}/`);
@@ -48,11 +68,11 @@ export const SchedulesProvider = ({ children }) => {
           draft.splice(appointmentIndex, 1);
         });
         setAppointments(nextState);
-        return alert("Paciente deletado com Sucesso!");
+        return alert("Consulta deletada com Sucesso!");
       }
       alert("Erro inesperado!");
     } catch (error) {
-      alert("Erro ao Adicionar um novo Paciente");
+      alert("Erro ao DELETE uma consulta");
     }
   };
 
@@ -76,6 +96,7 @@ export const SchedulesProvider = ({ children }) => {
         doctors,
         deleteAppointment,
         addNewAppointment,
+        updateAppointment,
       }}
     >
       {children}
