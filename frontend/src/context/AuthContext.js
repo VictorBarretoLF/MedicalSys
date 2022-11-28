@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
       // console.log(res);
       setUserData(res.data);
     };
-    console.log('batendo aqui!!!', auth);
+    // console.log('aqui primeiro!!!', auth);
     if (auth) {
       getCurrentUserData();
     }
