@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import produce from "immer";
 import axiosInstance from "../utils/axios";
 
@@ -6,6 +6,7 @@ export const SchedulesContext = createContext({});
 
 export const SchedulesProvider = ({ children }) => {
   const [schedules, setSchedules] = useState([]);
+  const [users, setUsers] = useState([]);
   const [status] = useState({
     AC: {
       text: "A Confirmar",
@@ -26,12 +27,19 @@ export const SchedulesProvider = ({ children }) => {
     setSchedules(res.data);
   };
 
+  const getUsers = async () => {
+    const res = await axiosInstance.get("user/all/");
+    setUsers(res.data);
+  };
+
   return (
     <SchedulesContext.Provider
       value={{
         getSchedules,
         schedules,
         status,
+        getUsers,
+        users,
       }}
     >
       {children}
