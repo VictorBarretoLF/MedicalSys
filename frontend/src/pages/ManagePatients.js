@@ -6,16 +6,15 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
+import PatientCard from "../components/PatientCard";
 import usePatientContext from "../hooks/usePatientContext";
-import AppointmentCard from "../components/AppointmentCard";
-import useSchedulingContext from "../hooks/useSchedulingContext";
 
 const ManagePatients = () => {
   const [modalShow, setModalShow] = useState(false);
-  const { schedules, getSchedules } = useSchedulingContext();
+  const { patients, getPatients } = usePatientContext();
 
   useEffect(() => {
-    getSchedules();
+    getPatients();
   }, []);
 
   return (
@@ -33,13 +32,15 @@ const ManagePatients = () => {
       <main className="px-4 mt-2">
         <Container>
           <Row>
-            {schedules.map((schedule, index) => {
+            {patients.map((patient, index) => {
               return (
-                <AppointmentCard
-                  key={schedule.id}
-                  data={schedule}
-                  scheduleIndex={index}
-                />
+                <Col md={6}>
+                  <PatientCard
+                    key={patient.id}
+                    data={patient}
+                    patientIndex={index}
+                  />
+                </Col>
               );
             })}
           </Row>
