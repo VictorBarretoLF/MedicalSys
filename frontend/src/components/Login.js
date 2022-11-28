@@ -36,6 +36,7 @@ const Login = () => {
       setAuth(jwt_decode(localStorage.getItem("refresh_token")));
       navigate("/app");
     } catch (error) {
+      // console.log(error);
       return showAlert(true, "danger", "E-mail ou senha inválidos!");
     }
   };
