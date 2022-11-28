@@ -32,12 +32,12 @@ const Appointments = () => {
       <main className="px-4 mt-2">
         <Container>
           <Row>
-            {schedules.map((patient, index) => {
+            {schedules.map((schedule, index) => {
               return (
                 <AppointmentCard
-                  key={patient.id}
-                  data={patient}
-                  patientIndex={index}
+                  key={schedule.id}
+                  data={schedule}
+                  scheduleIndex={index}
                 />
               );
             })}
