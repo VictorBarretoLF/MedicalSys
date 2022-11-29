@@ -14,18 +14,12 @@ export const AuthProvider = ({ children }) => {
   const [userData, setUserData] = useState({});
 
   useEffect(() => {
-    // get current user date based on the decoded id of jwt
     const getCurrentUserData = async () => {
-      const user_id = auth.user_id;
-
-      const res = await axiosInstance.get(`user/${user_id}/`);
-      // console.log(res);
+      // getting current user data
+      const res = await axiosInstance.get(`api/user/me/`);
       setUserData(res.data);
     };
-    // console.log('aqui primeiro!!!', auth);
-    if (auth) {
-      getCurrentUserData();
-    }
+    if (auth) getCurrentUserData();
   }, [auth]);
 
   return (
