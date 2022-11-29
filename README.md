@@ -34,7 +34,7 @@
     ```
     python manage.py runserver
     ```
-6. Abra seu browser e vá para http://127.0.0.1:8000/admin/ você verá uma página de login que confirmará o processo.
+6. O servidor estará rodando na porta local 8000: [http://127.0.0.1:8000/](http://127.0.0.1:8000/) 
 
 ### Executando Frontend
 
@@ -46,4 +46,4 @@
     ```
     npm start
     ```
-3. Abra seu browser e vá para http://127.0.0.1:3000/ e divirta-se!
+3. O cliente estará rodando na porta local 3000, abra seu browser e vá para [http://127.0.0.1:3000/](http://127.0.0.1:3000/) e divirta-se!
