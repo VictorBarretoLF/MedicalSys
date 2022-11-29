@@ -6,7 +6,8 @@
     ```
     docker-compose up
     ```
-2. Por padrão, o frontend se encontrará na porta http://127.0.0.1:3000/ e o backend na porta http://127.0.0.1:8000/
+2. Por padrão, o frontend se encontrará na porta [http://127.0.0.1:3000/](http://127.0.0.1:3000/) e o backend na porta [http://127.0.0.1:8000/](http://127.0.0.1:8000/) 
+
 
 ## Executando aplicação manualmente:
 
