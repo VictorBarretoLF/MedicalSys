@@ -64,4 +64,4 @@
  - [x] API ViaCEP
  - [x] Boostrap v5
  - [x] Immer (immer.js)
- - [x] React Input Mask para máscaras (react-input-mask)
+ - [x] React Input Mask para máscaras (react-input-mask) 
