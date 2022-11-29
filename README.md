@@ -2,14 +2,13 @@
 
 ## Executando backend da aplicação:
 
-1. Após clonar o projeto crie um ambiente virtual:
+1. Após clonar o projeto crie um ambiente virtual, entre na pasta backend e execute o seguinte comando:
     ```
     # pode copiar e colar os comandos no CMD do windows
-    cd ./backend && python -m venv venv
+    python -m venv venv
     ```
 2. Ative o ambiente vitrual:
     ```
-    cd ./venv/Scripts && activate
     cd ./venv/Scripts && activate && cd ../..
     ```
 3. Instalar as dependencias do projeto:
@@ -25,3 +24,16 @@
     ```
     python manage.py runserver
     ```
+6. Abra seu browser e vá para http://127.0.0.1:8000/admin/ você verá uma página de login que confirmará o processo.
+
+## Executando frontend da aplicação
+
+1. Vá até a pasta frontend e execute os seguintes comandos a seguir:
+    ```
+    npm install
+    ```
+2. Inicia a app react:
+    ```
+    npm start
+    ```
+3. Abra seu browser e vá para http://127.0.0.1:3000/ e divirta-se!
