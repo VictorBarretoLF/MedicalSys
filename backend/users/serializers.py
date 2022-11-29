@@ -24,3 +24,10 @@ class CustomUserSerializer(serializers.ModelSerializer):
         return instance
     
 
+class MyCustomUserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = NewUser
+        fields = ('id', 'email', 'name', 'created_at')
+        
+

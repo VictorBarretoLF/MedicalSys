@@ -1,11 +1,9 @@
-from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializers import CustomUserSerializer
-from rest_framework_simplejwt.tokens import RefreshToken
+from .serializers import CustomUserSerializer, MyCustomUserSerializer
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from rest_framework import generics
+from rest_framework import generics, viewsets
 from .models import NewUser
 
 
@@ -23,27 +21,28 @@ class CustomUserCreate(APIView):
 
 
 class UserList(generics.ListAPIView):
-    permission_classes = [IsAuthenticated]
     queryset = NewUser.objects.all()
     serializer_class = CustomUserSerializer
+
 
 class UserDetail(generics.RetrieveAPIView):
-    permission_classes = [IsAuthenticated]
     queryset = NewUser.objects.all()
     serializer_class = CustomUserSerializer
 
-class BlacklistTokenUpdateView(APIView):
-    permission_classes = [AllowAny]
-    authentication_classes = ()
 
-    def post(self, request):
-        try:
-            refresh_token = request.data["refresh_token"]
-            token = RefreshToken(refresh_token)
-            token.blacklist()
-            return Response(status=status.HTTP_205_RESET_CONTENT)
-        except Exception as e:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+class CurrentUserView(APIView):
+    """
+    End-points to get all details about logged in user
+    and update the profile of logged in user
+    """
+
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        serializer = MyCustomUserSerializer(request.user)
+        # queryset = NewUser.objects.all()
+        return Response(serializer.data)
+    # permission_classes = (permissions.IsAuthenticated,)
 
 
 """ Concrete View Classes

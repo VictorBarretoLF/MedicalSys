@@ -9,7 +9,7 @@ export const PatientProvider = ({ children }) => {
 
   const addNewPatient = async (data) => {
     try {
-      const res = await axiosInstance.post("http://localhost:8000/api/", data);
+      const res = await axiosInstance.post("api/", data);
 
       if (res.data) {
         const nextState = produce(patients, (draft) => {
@@ -27,7 +27,7 @@ export const PatientProvider = ({ children }) => {
   const deletePatient = async (patient, patientIndex) => {
     try {
       const res = await axiosInstance.delete(
-        `http://localhost:8000/api/${patient.id}/`
+        `api/${patient.id}/`
       );
 
       if (res.status === 204) {
@@ -46,7 +46,7 @@ export const PatientProvider = ({ children }) => {
   const updatePatient = async (patient, patientIndex) => {
     try {
       const res = await axiosInstance.put(
-        `http://localhost:8000/api/${patient.id}/`,
+        `api/${patient.id}/`,
         patient
       );
 
@@ -65,7 +65,7 @@ export const PatientProvider = ({ children }) => {
   };
 
   const getPatients = async () => {
-    const res = await axiosInstance.get("/");
+    const res = await axiosInstance.get("api/");
     setPatients(res.data);
   };
 

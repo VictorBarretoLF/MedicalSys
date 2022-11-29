@@ -2,14 +2,14 @@ import axios from "axios";
 // import jwt_decode from "jwt-decode";
 // import dayjs from "dayjs";
 
-const baseURL = "http://127.0.0.1:8000/api/";
+const baseURL = "http://127.0.0.1:8000/";
 
 const axiosInstance = axios.create({
   baseURL: baseURL,
   timeout: 10000,
   headers: {
     Authorization: localStorage.getItem("access_token")
-      ? "JWT " + localStorage.getItem("access_token")
+      ? "Bearer " + localStorage.getItem("access_token")
       : null,
     "Content-Type": "application/json",
     accept: "application/json",
@@ -111,7 +111,7 @@ axiosInstance.interceptors.response.use(
         })
           .then((token) => {
             // console.log("line 112", token);
-            originalRequest.headers["Authorization"] = "JWT " + token;
+            originalRequest.headers["Authorization"] = "Bearer " + token;
             return axiosInstance(originalRequest);
           })
           .catch((err) => {
@@ -127,25 +127,44 @@ axiosInstance.interceptors.response.use(
       //   originalRequest._retry
       // );
       const refreshToken = localStorage.getItem("refresh_token");
+      // console.log(refreshToken);
       return new Promise(function (resolve, reject) {
         axiosInstance
-          .post("token/refresh/", { refresh : refreshToken })
+          .post(
+            "auth/token",
+            {
+              refresh_token: refreshToken,
+              grant_type: "refresh_token",
+              client_secret: "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",
+              client_id:
+                "996195593239-8q2ak5oosevbhb84injh9diki59327lc.apps.googleusercontent.com",
+            },
+            {
+              headers: {
+                Authorization: null,
+                "Content-Type": "application/json",
+                accept: "application/json",
+              },
+            }
+          )
           .then(({ data }) => {
             // console.log("line 129", data);
-            localStorage.setItem("access_token", data.access);
-            localStorage.setItem("refresh_token", data.refresh);
+            localStorage.setItem("access_token", data.access_token);
+            localStorage.setItem("refresh_token", data.refresh_token);
             axiosInstance.defaults.headers.common["Authorization"] =
-              "JWT " + data.access;
-            originalRequest.headers["Authorization"] = "JWT " + data.access;
+              "Bearer " + data.access_token;
+            originalRequest.headers["Authorization"] = "Bearer " + data.access_token;
             // console.log('check correct localStorage data', localStorage)
             processQueue(null, data.access);
             resolve(axiosInstance(originalRequest));
           })
           .catch((err) => {
+            // console.log("line 152", err);
             processQueue(err, null);
             reject(err);
           })
           .finally(() => {
+            // console.log("line 157");
             isRefreshing = false;
           });
       });

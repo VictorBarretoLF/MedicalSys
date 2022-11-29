@@ -6,10 +6,9 @@ import { useState } from "react";
 import CustomAlert from "./Alert";
 import { useNavigate } from "react-router-dom";
 import useAuthContext from "../hooks/useAuthContext";
-import jwt_decode from "jwt-decode";
 
 const Login = () => {
-  const { setAuth } = useAuthContext();
+  const { setUserData } = useAuthContext();
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
@@ -28,12 +27,22 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const res = await axiosInstance.post("token/", form);
-      localStorage.setItem("access_token", res.data.access);
-      localStorage.setItem("refresh_token", res.data.refresh);
+      const res = await axiosInstance.post("auth/token", {
+        username: form.email,
+        password: form.password,
+        grant_type: "password",
+        client_secret: "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",
+        client_id:
+          "996195593239-8q2ak5oosevbhb84injh9diki59327lc.apps.googleusercontent.com",
+      });
+      // console.log("the new response here", res);
+      localStorage.setItem("access_token", res.data.access_token);
+      localStorage.setItem("refresh_token", res.data.refresh_token);
       axiosInstance.defaults.headers["Authorization"] =
-        "JWT " + localStorage.getItem("access_token");
-      setAuth(jwt_decode(localStorage.getItem("refresh_token")));
+        "Bearer " + localStorage.getItem("access_token");
+
+      const userData = await axiosInstance.get(`api/user/me/`);
+      setUserData(userData.data);
       navigate("/app");
     } catch (error) {
       // console.log(error);

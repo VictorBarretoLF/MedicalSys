@@ -38,7 +38,7 @@ const Register = () => {
       const newForm = { ...form };
       delete newForm.confirmPassword;
       await axiosInstance.post(
-        "user/create/",
+        "/api/user/create/",
         newForm,
         {
           headers: {
