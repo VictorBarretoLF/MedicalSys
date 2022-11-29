@@ -7,7 +7,6 @@ import CustomAlert from "./Alert";
 import { useNavigate } from "react-router-dom";
 import useAuthContext from "../hooks/useAuthContext";
 
-
 const Login = () => {
   const { setUserData } = useAuthContext();
   const navigate = useNavigate();
@@ -41,10 +40,10 @@ const Login = () => {
       localStorage.setItem("refresh_token", res.data.refresh_token);
       axiosInstance.defaults.headers["Authorization"] =
         "Bearer " + localStorage.getItem("access_token");
-      
+
       const userData = await axiosInstance.get(`api/user/me/`);
       setUserData(userData.data);
-      // navigate("/app");
+      navigate("/app");
     } catch (error) {
       // console.log(error);
       return showAlert(true, "danger", "E-mail ou senha inválidos!");
