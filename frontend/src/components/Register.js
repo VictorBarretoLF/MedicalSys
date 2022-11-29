@@ -7,7 +7,7 @@ import CustomAlert from "./Alert";
 
 const DEFAULT_FORM = {
   email: "",
-  name: "",
+  username: "",
   password: "",
   confirmPassword: "",
 };
@@ -69,8 +69,8 @@ const Register = () => {
           aria-describedby="nome completo"
           type="text"
           onChange={onChangeHandler}
-          name="name"
-          value={form.name}
+          name="username"
+          value={form.username}
           required
         />
       </InputGroup>
