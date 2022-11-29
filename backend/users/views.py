@@ -21,12 +21,10 @@ class CustomUserCreate(APIView):
 
 
 class UserList(generics.ListAPIView):
-    permission_classes = [IsAuthenticated]
     queryset = NewUser.objects.all()
     serializer_class = CustomUserSerializer
 
 class UserDetail(generics.RetrieveAPIView):
-    permission_classes = [IsAuthenticated]
     queryset = NewUser.objects.all()
     serializer_class = CustomUserSerializer
 
