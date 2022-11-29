@@ -1,6 +1,16 @@
 # MedicalSys
 
-## Executando backend da aplicação:
+## Executando aplicação usando o Docker Compose:
+
+1. Após clonar o projeto, digite o seguinte comando dentro da pasta:
+    ```
+    docker-compose up
+    ```
+2. Por padrão, o frontend se encontrará na porta http://127.0.0.1:3000/ e o backend na porta http://127.0.0.1:8000/
+
+## Executando aplicação manualmente:
+
+### Executando Backend
 
 1. Após clonar o projeto crie um ambiente virtual, entre na pasta backend e execute o seguinte comando:
     ```
@@ -26,7 +36,7 @@
     ```
 6. Abra seu browser e vá para http://127.0.0.1:8000/admin/ você verá uma página de login que confirmará o processo.
 
-## Executando frontend da aplicação
+### Executando Frontend
 
 1. Vá até a pasta frontend e execute os seguintes comandos a seguir:
     ```
