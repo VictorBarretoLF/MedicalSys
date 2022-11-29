@@ -45,7 +45,7 @@ const AppointmentConfigModal = ({
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    console.log(form);
+    // console.log(form);
 
     if (edit) {
       await updateAppointment(form, appointmentIndex);
