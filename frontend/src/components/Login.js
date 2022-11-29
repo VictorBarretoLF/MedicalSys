@@ -9,7 +9,7 @@ import useAuthContext from "../hooks/useAuthContext";
 
 
 const Login = () => {
-  const { setAuth } = useAuthContext();
+  const { setUserData } = useAuthContext();
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
@@ -36,12 +36,14 @@ const Login = () => {
         client_id:
           "996195593239-8q2ak5oosevbhb84injh9diki59327lc.apps.googleusercontent.com",
       });
-      console.log("the new response here", res);
+      // console.log("the new response here", res);
       localStorage.setItem("access_token", res.data.access_token);
       localStorage.setItem("refresh_token", res.data.refresh_token);
       axiosInstance.defaults.headers["Authorization"] =
         "Bearer " + localStorage.getItem("access_token");
-      setAuth(localStorage.getItem("access_token"));
+      
+      const userData = await axiosInstance.get(`api/user/me/`);
+      setUserData(userData.data);
       // navigate("/app");
     } catch (error) {
       // console.log(error);
