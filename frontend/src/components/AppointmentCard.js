@@ -34,7 +34,7 @@ const AppointmentCard = ({ data, appointmentIndex }) => {
         <Container>
           <Row>
             <Col md={6}>
-              <ListGroup.Item>Medico : {currentDoctor?.name}</ListGroup.Item>
+              <ListGroup.Item>Medico : {currentDoctor?.username}</ListGroup.Item>
             </Col>
             <Col>
               <ListGroup.Item>Paciente : {currentPatient?.name}</ListGroup.Item>

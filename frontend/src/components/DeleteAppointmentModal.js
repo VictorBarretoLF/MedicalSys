@@ -12,7 +12,7 @@ const DeleteAppointmentModal = ({
   currentPatient,
 }) => {
   const { deleteAppointment } = useSchedulingContext();
-
+  console.log(currentDoctor)
   return (
     <Modal
       show={show}
@@ -34,7 +34,7 @@ const DeleteAppointmentModal = ({
           <h3>
             Tem certreza que deseja apagar a consulta?{" "}
             <p className="text-decoration-underline">
-              Com o médico: {currentDoctor?.name}
+              Com o médico: {currentDoctor?.username}
             </p>
             <p className="text-decoration-underline">
               E o paciente: {currentPatient?.name}

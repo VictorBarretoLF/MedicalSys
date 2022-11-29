@@ -101,7 +101,7 @@ const AppointmentConfigModal = ({
                   {doctors.map((doctor) => {
                     return (
                       <option key={doctor.id} value={doctor.id}>
-                        {doctor.name}
+                        {doctor.username}
                       </option>
                     );
                   })}
