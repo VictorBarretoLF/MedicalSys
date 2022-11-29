@@ -2,9 +2,7 @@ version : "3"
 
 services:
   backend:
-    build:
-      dockerfile: Dockerfile
-      context: ./backend
+    image : barretolins/backend
     ports: 
       - 8000:8000
   
