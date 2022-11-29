@@ -7,12 +7,12 @@ class CustomUserSerializer(serializers.ModelSerializer):
     Currently unused in preference of the below.
     """
     email = serializers.EmailField(required=True)
-    name = serializers.CharField(required=True)
+    username = serializers.CharField(required=True)
     password = serializers.CharField(min_length=6, write_only=True)
 
     class Meta:
         model = NewUser
-        fields = ('id', 'email', 'name', 'password', 'created_at')
+        fields = ('id', 'email', 'username', 'password', 'created_at')
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
@@ -28,6 +28,6 @@ class MyCustomUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = NewUser
-        fields = ('id', 'email', 'name', 'created_at')
+        fields = ('id', 'email', 'username', 'created_at')
         
 
