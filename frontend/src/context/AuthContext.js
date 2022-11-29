@@ -1,17 +1,11 @@
 import { createContext, useEffect, useState } from "react";
 import axiosInstance from "../utils/axios";
-import jwt_decode from "jwt-decode";
 
 export const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
-  const [auth, setAuth] = useState(() =>
-    localStorage.getItem("refresh_token")
-      ? jwt_decode(localStorage.getItem("refresh_token"))
-      : null
-  );
-
   const [userData, setUserData] = useState({});
+  console.log(userData);
 
   useEffect(() => {
     const getCurrentUserData = async () => {
@@ -19,11 +13,15 @@ export const AuthProvider = ({ children }) => {
       const res = await axiosInstance.get(`api/user/me/`);
       setUserData(res.data);
     };
-    if (auth) getCurrentUserData();
-  }, [auth]);
+    if (
+      localStorage.getItem("access_token") &&
+      localStorage.getItem("refresh_token")
+    )
+      getCurrentUserData();
+  }, []);
 
   return (
-    <AuthContext.Provider value={{ auth, setAuth, userData }}>
+    <AuthContext.Provider value={{ userData, setUserData }}>
       {children}
     </AuthContext.Provider>
   );
