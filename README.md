@@ -48,3 +48,20 @@
     npm start
     ```
 3. O cliente estará rodando na porta local 3000, abra seu browser e vá para [http://localhost:3000/](http://localhost:3000/) e divirta-se!
+
+
+#### 💻 MAIN STACK BACKEND:
+
+ - [x] Django
+ - [x] Django Rest Framework Social OAuth2 (drf-social-oauth2)
+ - [x] Protected routes
+ - [x] JSON Web Tokens (JWT)
+ - [x] Django Rest Framework (djangorestframework)
+
+#### 💻 MAIN STACK FRONTEND:
+
+ - [x] Axios Interceptors com Process Queue
+ - [x] API ViaCEP
+ - [x] Boostrap v5
+ - [x] Immer (immer.js)
+ - [x] React Input Mask para máscaras (react-input-mask)
