@@ -1,0 +1,16 @@
+#root {
+  height: 100vh;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+#basic-nav-dropdown {
+  color: white;
+}
+
+.dropdown-menu[data-bs-popper] {
+  width: fit-content;
+  left: 25% !important;
+}
