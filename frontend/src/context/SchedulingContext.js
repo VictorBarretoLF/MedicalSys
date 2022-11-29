@@ -45,7 +45,7 @@ export const SchedulesProvider = ({ children }) => {
         `api/scheduling/${appointment.id}/`,
         appointment
       );
-      console.log(res, appointmentIndex);
+      // console.log(res, appointmentIndex);
       if (res.data) {
         const nextState = produce(appointments, (draft) => {
           draft[appointmentIndex] = res.data;

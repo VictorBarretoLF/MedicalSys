@@ -5,7 +5,7 @@ export const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
   const [userData, setUserData] = useState({});
-  console.log(userData);
+  // console.log(userData);
 
   useEffect(() => {
     const getCurrentUserData = async () => {
