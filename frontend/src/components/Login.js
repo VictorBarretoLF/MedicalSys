@@ -6,8 +6,7 @@ import { useState } from "react";
 import CustomAlert from "./Alert";
 import { useNavigate } from "react-router-dom";
 import useAuthContext from "../hooks/useAuthContext";
-import jwt_decode from "jwt-decode";
-import axios from "axios";
+
 
 const Login = () => {
   const { setAuth } = useAuthContext();
@@ -40,9 +39,9 @@ const Login = () => {
       console.log("the new response here", res);
       localStorage.setItem("access_token", res.data.access_token);
       localStorage.setItem("refresh_token", res.data.refresh_token);
-      // axios.defaults.headers["Authorization"] =
-      //   "JWT " + localStorage.getItem("access_token");
-      setAuth(jwt_decode(localStorage.getItem("access_token")));
+      axiosInstance.defaults.headers["Authorization"] =
+        "Bearer " + localStorage.getItem("access_token");
+      setAuth(localStorage.getItem("access_token"));
       // navigate("/app");
     } catch (error) {
       // console.log(error);
