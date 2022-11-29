@@ -24,7 +24,7 @@ export const SchedulesProvider = ({ children }) => {
 
   const addNewAppointment = async (data) => {
     try {
-      const res = await axiosInstance.post("scheduling/", data);
+      const res = await axiosInstance.post("api/scheduling/", data);
 
       if (res.data) {
         const nextState = produce(appointments, (draft) => {
@@ -42,7 +42,7 @@ export const SchedulesProvider = ({ children }) => {
   const updateAppointment = async (appointment, appointmentIndex) => {
     try {
       const res = await axiosInstance.put(
-        `scheduling/${appointment.id}/`,
+        `api/scheduling/${appointment.id}/`,
         appointment
       );
       console.log(res, appointmentIndex);
@@ -61,7 +61,7 @@ export const SchedulesProvider = ({ children }) => {
 
   const deleteAppointment = async (appointment, appointmentIndex) => {
     try {
-      const res = await axiosInstance.delete(`scheduling/${appointment.id}/`);
+      const res = await axiosInstance.delete(`api/scheduling/${appointment.id}/`);
 
       if (res.status === 204) {
         const nextState = produce(appointments, (draft) => {
@@ -77,12 +77,12 @@ export const SchedulesProvider = ({ children }) => {
   };
 
   const getSchedules = async () => {
-    const res = await axiosInstance.get("scheduling/");
+    const res = await axiosInstance.get("api/scheduling/");
     setAppointments(res.data);
   };
 
   const getUsers = async () => {
-    const res = await axiosInstance.get("user/all/");
+    const res = await axiosInstance.get("api/user/all/");
     setDoctors(res.data);
   };
 
