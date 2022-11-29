@@ -6,7 +6,7 @@
     ```
     docker-compose up
     ```
-2. Por padrão, o frontend se encontrará na porta [http://127.0.0.1:3000/](http://127.0.0.1:3000/) e o backend na porta [http://127.0.0.1:8000/](http://127.0.0.1:8000/) 
+2. Por padrão, o frontend se encontrará na porta [http://localhost:3000/](http://localhost:3000/) e o backend na porta [http://localhost:8000/](http://localhost:8000/) 
 
 
 ## Executando aplicação manualmente:
@@ -35,7 +35,7 @@
     ```
     python manage.py runserver
     ```
-6. O servidor estará rodando na porta local 8000: [http://127.0.0.1:8000/](http://127.0.0.1:8000/) 
+6. O servidor estará rodando na porta local 8000: [http://localhost:8000/](http://localhost:8000/) 
 
 ### Executando Frontend
 
@@ -47,4 +47,4 @@
     ```
     npm start
     ```
-3. O cliente estará rodando na porta local 3000, abra seu browser e vá para [http://127.0.0.1:3000/](http://127.0.0.1:3000/) e divirta-se!
+3. O cliente estará rodando na porta local 3000, abra seu browser e vá para [http://localhost:3000/](http://localhost:3000/) e divirta-se!
