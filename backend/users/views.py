@@ -1,9 +1,9 @@
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializers import CustomUserSerializer
+from .serializers import CustomUserSerializer, MyCustomUserSerializer
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from rest_framework import generics
+from rest_framework import generics, viewsets
 from .models import NewUser
 
 
@@ -24,9 +24,25 @@ class UserList(generics.ListAPIView):
     queryset = NewUser.objects.all()
     serializer_class = CustomUserSerializer
 
+
 class UserDetail(generics.RetrieveAPIView):
     queryset = NewUser.objects.all()
     serializer_class = CustomUserSerializer
+
+
+class CurrentUserView(APIView):
+    """
+    End-points to get all details about logged in user
+    and update the profile of logged in user
+    """
+
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        serializer = MyCustomUserSerializer(request.user)
+        # queryset = NewUser.objects.all()
+        return Response(serializer.data)
+    # permission_classes = (permissions.IsAuthenticated,)
 
 
 """ Concrete View Classes
