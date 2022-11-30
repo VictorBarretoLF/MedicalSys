@@ -6,6 +6,8 @@ import { useState } from "react";
 import CustomAlert from "./Alert";
 import { useNavigate } from "react-router-dom";
 import useAuthContext from "../hooks/useAuthContext";
+import FacebookLogin from "react-facebook-login";
+import facebookLogin from "../utils/facebookLogin";
 
 const Login = () => {
   const { setUserData } = useAuthContext();
@@ -54,6 +56,17 @@ const Login = () => {
     setAlert({ show, type, msg });
   };
 
+  const facebookResponse = async (response) => {
+    const res = await facebookLogin(response.accessToken);
+    localStorage.setItem("access_token", res.data.access_token);
+    localStorage.setItem("refresh_token", res.data.refresh_token);
+    axiosInstance.defaults.headers["Authorization"] =
+      "Bearer " + localStorage.getItem("access_token");
+    const userData = await axiosInstance.get(`api/user/me/`);
+    setUserData(userData.data);
+    navigate("/app");
+  };
+
   return (
     <form onSubmit={onSubmitHandler}>
       {alert.show && <CustomAlert {...alert} removeAlert={showAlert} />}
@@ -81,9 +94,16 @@ const Login = () => {
           required
         />
       </InputGroup>
-      <Button type="submit" className="w-100" variant="primary">
+      <Button type="submit" className="w-100 mb-4" variant="primary">
         Entrar
       </Button>
+      <div className="text-center">
+        <FacebookLogin
+          appId="1339714710130136"
+          size="medium"
+          callback={facebookResponse}
+        />
+      </div>
     </form>
   );
 };
