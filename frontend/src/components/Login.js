@@ -33,9 +33,8 @@ const Login = () => {
         username: form.email,
         password: form.password,
         grant_type: "password",
-        client_secret: "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",
-        client_id:
-          "996195593239-8q2ak5oosevbhb84injh9diki59327lc.apps.googleusercontent.com",
+        client_secret: process.env.REACT_APP_OAUTH2_CLIENT_SECRET,
+        client_id: process.env.REACT_APP_OAUTH2_CLIENT_ID,
       });
       // console.log("the new response here", res);
       localStorage.setItem("access_token", res.data.access_token);
@@ -55,7 +54,7 @@ const Login = () => {
   const showAlert = (show = false, type = "", msg = "") => {
     setAlert({ show, type, msg });
   };
-
+  
   const facebookResponse = async (response) => {
     const res = await facebookLogin(response.accessToken);
     localStorage.setItem("access_token", res.data.access_token);
@@ -99,7 +98,7 @@ const Login = () => {
       </Button>
       <div className="text-center">
         <FacebookLogin
-          appId="1339714710130136"
+          appId={process.env.REACT_APP_FACEBOOK_KEY}
           size="medium"
           callback={facebookResponse}
         />

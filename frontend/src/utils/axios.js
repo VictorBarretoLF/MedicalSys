@@ -135,9 +135,8 @@ axiosInstance.interceptors.response.use(
             {
               refresh_token: refreshToken,
               grant_type: "refresh_token",
-              client_secret: "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",
-              client_id:
-                "996195593239-8q2ak5oosevbhb84injh9diki59327lc.apps.googleusercontent.com",
+              client_secret: process.env.REACT_APP_OAUTH2_CLIENT_SECRET,
+              client_id: process.env.REACT_APP_OAUTH2_CLIENT_ID,
             },
             {
               headers: {
@@ -153,7 +152,8 @@ axiosInstance.interceptors.response.use(
             localStorage.setItem("refresh_token", data.refresh_token);
             axiosInstance.defaults.headers.common["Authorization"] =
               "Bearer " + data.access_token;
-            originalRequest.headers["Authorization"] = "Bearer " + data.access_token;
+            originalRequest.headers["Authorization"] =
+              "Bearer " + data.access_token;
             // console.log('check correct localStorage data', localStorage)
             processQueue(null, data.access);
             resolve(axiosInstance(originalRequest));
