@@ -31,11 +31,21 @@
     python manage.py makemigrations patient users scheduling
     python manage.py migrate
     ```
-5. Agora você pode rodar o servidor em desenvolvimento:
+
+5. Ainda na pasta backend, crie um arquivo chamado .env
+   
+6. Usando o arquivo .envxemple como exemplo, preencha as variáveis de ambiente de acordo com as chaves
+   ```
+   # exemplo:
+   SOCIAL_AUTH_FACEBOOK_KEY=123456
+   SOCIAL_AUTH_FACEBOOK_SECRET=abcd123456
+   ```
+   
+7. Agora você pode rodar o servidor em desenvolvimento:
     ```
     python manage.py runserver
     ```
-6. O servidor estará rodando na porta local 8000: [http://localhost:8000/](http://localhost:8000/) 
+8. O servidor estará rodando na porta local 8000: [http://localhost:8000/](http://localhost:8000/) 
 
 ### Executando Frontend
 
@@ -43,12 +53,24 @@
     ```
     npm install
     ```
-2. Inicia a app react:
+2. Ainda na pasta frontend, crie um arquivo chamado .env
+   
+3. Usando o arquivo .envxemple como exemplo, preencha as variáveis de ambiente de acordo com as chaves
+    ```
+   # exemplo:
+   SOCIAL_AUTH_FACEBOOK_KEY=32exemplodaiddoappdofacebook643
+    SOCIAL_AUTH_FACEBOOK_SECRET=exemplo7523asd
+
+    REACT_APP_OAUTH2_CLIENT_SECRET=exemplodechavesecreta653434
+    REACT_APP_OAUTH2_CLIENT_ID=exemplo123
+   ```
+4. Inicia a app react:
     ```
     npm start
     ```
-3. O cliente estará rodando na porta local 3000, abra seu browser e vá para [http://localhost:3000/](http://localhost:3000/) e divirta-se!
-
+5. O cliente estará rodando na porta local 3000, abra seu browser e vá para [http://localhost:3000/](http://localhost:3000/) e divirta-se!
+   
+OBS: Se as variáveis estiverem corretas, o app funcionará normalmente.
 
 #### 💻 MAIN STACK BACKEND:
 
