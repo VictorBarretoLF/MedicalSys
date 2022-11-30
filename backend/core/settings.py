@@ -153,6 +153,27 @@ CORS_ALLOWED_ORIGINS = [
 AUTH_USER_MODEL = "users.NewUser"
 
 AUTHENTICATION_BACKENDS = (
-   'drf_social_oauth2.backends.DjangoOAuth2',
-   'django.contrib.auth.backends.ModelBackend',
+    # Others auth providers (e.g. Google, OpenId, etc)
+
+    # Facebook OAuth2
+    'social_core.backends.facebook.FacebookAppOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
+
+    # drf_social_oauth2
+    'drf_social_oauth2.backends.DjangoOAuth2',
+
+    # Django
+    'django.contrib.auth.backends.ModelBackend',
 )
+
+# Facebook configuration
+SOCIAL_AUTH_FACEBOOK_KEY = '1339714710130136'
+SOCIAL_AUTH_FACEBOOK_SECRET = 'd39d76f6704c717d271249556bf6cc2e'
+
+# Define SOCIAL_AUTH_FACEBOOK_SCOPE to get extra permissions from Facebook.
+# Email is not sent by default, to get it, you must request the email permission.
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+    'fields': 'id, name, email'
+    }
+SOCIAL_AUTH_USER_FIELDS = ['email', 'username', 'password']
