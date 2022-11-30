@@ -6,9 +6,8 @@ const facebookLogin = async (accesstoken) => {
       token: accesstoken,
       backend: "facebook",
       grant_type: "convert_token",
-      client_id:
-        "996195593239-8q2ak5oosevbhb84injh9diki59327lc.apps.googleusercontent.com",
-      client_secret: "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",
+      client_id: process.env.REACT_APP_OAUTH2_CLIENT_ID,
+      client_secret: process.env.REACT_APP_OAUTH2_CLIENT_SECRET,
     })
     .then((res) => {
       return res;

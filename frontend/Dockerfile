@@ -6,6 +6,6 @@ ENV PATH="./node_modules/.bin:$PATH"
 
 COPY . .
 
-RUN npm i
+RUN npm i --force
 
 CMD npm start
