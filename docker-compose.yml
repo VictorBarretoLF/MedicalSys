@@ -7,8 +7,6 @@ services:
       - 8000:8000
   
   frontend:
-    build:
-      dockerfile: Dockerfile
-      context: ./frontend
+    image : barretolins/frontend
     ports:
       - 3000:3000
