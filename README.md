@@ -51,7 +51,7 @@
 
 1. Vá até a pasta frontend e execute os seguintes comandos a seguir:
     ```
-    npm install
+    npm install --force
     ```
 2. Ainda na pasta frontend, crie um arquivo chamado .env
    
