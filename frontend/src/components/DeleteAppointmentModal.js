@@ -12,7 +12,7 @@ const DeleteAppointmentModal = ({
   currentPatient,
 }) => {
   const { deleteAppointment } = useSchedulingContext();
-  console.log(currentDoctor)
+  // console.log(currentDoctor)
   return (
     <Modal
       show={show}
