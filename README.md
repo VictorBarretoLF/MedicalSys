@@ -2,11 +2,19 @@
 
 ## Executando aplicação usando o Docker Compose:
 
-1. Após clonar o projeto, digite o seguinte comando dentro da pasta:
+
+1. Crie um arquivo ***.env*** onde se encotram as pastas _backend_ e _frontend_ e preencha-o de acordo com o ***.env.compose.exemple***:
+    ```
+   # exemplo:
+   SOCIAL_AUTH_FACEBOOK_KEY=123456
+   SOCIAL_AUTH_FACEBOOK_SECRET=abcd123456
+   ...
+   ```
+2. Depois de configurado as variáveis de ambiente, digite o seguinte comando dentro da pasta:
     ```
     docker-compose up
     ```
-2. Por padrão, o frontend se encontrará na porta [http://localhost:3000/](http://localhost:3000/) e o backend na porta [http://localhost:8000/](http://localhost:8000/) 
+3. Por padrão, o frontend se encontrará na porta [http://localhost:3000/](http://localhost:3000/) e o backend na porta [http://localhost:8000/](http://localhost:8000/) 
 
 
 ## Executando aplicação manualmente:
