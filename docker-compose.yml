@@ -2,11 +2,28 @@ version : "3"
 
 services:
   backend:
-    image : barretolins/backend
+    build: ./backend
     ports: 
       - 8000:8000
+    restart: always
+    environment:
+      SOCIAL_AUTH_FACEBOOK_KEY: ${SOCIAL_AUTH_FACEBOOK_KEY}
+      SOCIAL_AUTH_FACEBOOK_SECRET: ${SOCIAL_AUTH_FACEBOOK_SECRET}
+    networks:
+      - app_net
   
   frontend:
-    image : barretolins/frontend
+    build: ./frontend
     ports:
       - 3000:3000
+    environment:
+      REACT_APP_FACEBOOK_KEY: ${REACT_APP_FACEBOOK_KEY}
+      REACT_APP_FACEBOOK_SECRET: ${REACT_APP_FACEBOOK_SECRET}
+      REACT_APP_OAUTH2_CLIENT_SECRET: ${REACT_APP_OAUTH2_CLIENT_SECRET}
+      REACT_APP_OAUTH2_CLIENT_ID: ${REACT_APP_OAUTH2_CLIENT_ID}
+    networks:
+      - app_net
+
+networks:
+  app_net:
+    driver: bridge
