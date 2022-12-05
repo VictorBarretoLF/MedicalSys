@@ -2,9 +2,10 @@ FROM node
 
 WORKDIR /frontend
 
-ENV PATH="./node_modules/.bin:$PATH"
-
-COPY . .
+COPY src ./src
+COPY public ./public
+COPY package-lock.json .
+COPY package.json .
 
 RUN npm i --force
 
